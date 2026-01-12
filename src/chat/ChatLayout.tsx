@@ -84,11 +84,11 @@ export function ChatLayout() {
         <div className="chat-shell">
 
             {/* 🖥 Desktop Sidebar */}
-            <ChannelSidebar
-                channels={mockChannels}
-                activeChannelId={activeChannel}
-                onSelect={setActiveChannel}
-            />
+            {/*<ChannelSidebar*/}
+            {/*    channels={mockChannels}*/}
+            {/*    activeChannelId={activeChannel}*/}
+            {/*    onSelect={setActiveChannel}*/}
+            {/*/>*/}
 
             {/* 💬 Chat Area */}
             <MainContainer className="chat-main">

@@ -13,8 +13,14 @@
     "@chatscope/chat-ui-kit-react": "^2.1.1",
     "@chatscope/chat-ui-kit-styles": "^1.4.0",
     "@chatscope/use-chat": "^1.4.1",
+    "@tanstack/react-table": "^8.21.3",
+    "leaflet": "^1.9.4",
+    "primeflex": "^4.0.0",
+    "primeicons": "^7.0.0",
+    "primereact": "^10.9.7",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-leaflet": "^4.2.1",
     "wrangler": "^4.58.0"
   },
   "devDependencies": {

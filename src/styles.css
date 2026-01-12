@@ -193,3 +193,80 @@
   font-size: 0.75rem;
   color: #777;
 }
+
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+.app-root {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+}
+
+/* LINKS: CHAT */
+.left-pane {
+  width: 500px;          /* gut für Chat */
+  min-width: 320px;
+  border-right: 1px solid #ddd;
+  display: flex;
+}
+
+/* RECHTS */
+.right-pane {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* OBEN: MAP */
+.map-pane {
+  flex: 1;               /* Map bekommt mehr Platz */
+  border-bottom: 1px solid #ddd;
+}
+
+/* UNTEN: LISTE */
+.list-pane {
+  flex: 2;
+  overflow-y: auto;
+}
+
+.map-pane {
+  flex: 2;
+  position: relative;
+}
+
+.map-pane > * {
+  height: 100%;
+}
+
+/* PrimeReact Table feinjustieren */
+.node-table .p-datatable-thead > tr > th {
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.node-table .p-datatable-tbody > tr > td {
+  font-size: 0.75rem;
+  padding: 6px 8px;
+}
+
+/* RSSI Farben */
+.rssi-ok {
+  color: #2e7d32;
+  font-weight: 500;
+}
+
+.rssi-warn {
+  color: #c62828;
+  font-weight: 500;
+}
+
+/* Tabelle füllt Panel sauber */
+.p-datatable {
+  height: 100%;
+}
