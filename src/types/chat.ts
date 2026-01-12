@@ -12,4 +12,3 @@ export interface ChatChannel {
     name: string;
 }
 
-type ConnectionStatus = "connected" | "connecting" | "offline";

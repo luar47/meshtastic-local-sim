@@ -8,6 +8,7 @@ import {
 } from "@chatscope/chat-ui-kit-react";
 const API_BASE = import.meta.env.VITE_API_BASE_URL;
 
+import type {ChatMessage} from "../types/chat.ts";
 import {mockChannels} from "./mockChannels";
 import {useEffect, useState} from "react";
 import {ChannelSidebar} from "./ChannelSidebar";
@@ -21,14 +22,8 @@ export function ChatLayout() {
         "connected"
     );
 
-    type ChatMessage = {
-        id: string;
-        text: string;
-        sender: "local" | "remote";
-    };
 
     const [messages, setMessages] = useState<ChatMessage[]>([]);
-    const [loading, setLoading] = useState(true);
 
     function formatTime(ts: number) {
         return new Date(ts).toLocaleTimeString("de-DE", {
@@ -57,7 +52,7 @@ export function ChatLayout() {
             } catch (err) {
                 console.error("Failed to load chat history", err);
             } finally {
-                setLoading(false);
+                console.log("Load Messages from server");
             }
         }
 
