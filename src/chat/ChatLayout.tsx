@@ -11,7 +11,6 @@ const API_BASE = import.meta.env.VITE_API_BASE_URL;
 import type {ChatMessage} from "../types/chat.ts";
 import {mockChannels} from "./mockChannels";
 import {useEffect, useState} from "react";
-import {ChannelSidebar} from "./ChannelSidebar";
 import {MobileChannelMenu} from "./MobileChannelMenu";
 import {connectChatSse} from "./chatSse";
 
