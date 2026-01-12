@@ -1,7 +1,12 @@
 import { useEffect, useState } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import type { LatLngExpression } from "leaflet";
+import "leaflet/dist/leaflet.css";
+
 import type { MapMarker } from "../types/maps";
 import { fetchMarkers } from "../api/map";
+
+const center: LatLngExpression = [49.75, 6.64];
 
 export function MapPanel() {
     const [markers, setMarkers] = useState<MapMarker[]>([]);
@@ -9,17 +14,16 @@ export function MapPanel() {
     useEffect(() => {
         fetchMarkers()
             .then(setMarkers)
-            .catch((err) => console.error(err));
+            .catch(console.error);
     }, []);
 
     return (
         <MapContainer
-            center={[49.75, 6.64]}
-            zoom={12}
+            center={center}
+            zoom={11}
             style={{ height: "100%", width: "100%" }}
         >
             <TileLayer
-                attribution='© <a href="https://www.openstreetmap.org/">OpenStreetMap</a>'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
 
