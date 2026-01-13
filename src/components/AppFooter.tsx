@@ -1,6 +1,5 @@
 import { Toolbar } from "primereact/toolbar";
 import { Tag } from "primereact/tag";
-import {vitest} from "globals";
 
 export function AppFooter() {
     const left = (
