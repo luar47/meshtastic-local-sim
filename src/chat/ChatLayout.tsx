@@ -45,6 +45,7 @@ export function ChatLayout() {
                         id: String(m.id),
                         text: m.text,
                         sender: m.sender,
+                        short_name: m.short_name,
                         timestamp: m.timestamp,
                     }))
                 );
@@ -68,6 +69,7 @@ export function ChatLayout() {
                     id: crypto.randomUUID(),
                     text: event.text,
                     sender: event.sender ?? "Unbekannt",
+                    short_name: event.short_name,
                     timestamp: event.timestamp,
                 },
             ]);
@@ -129,7 +131,7 @@ export function ChatLayout() {
                             >
                                 <Message.Footer>
         <span className="msg-meta">
-          {m.sender} · {formatTime(m.timestamp)}
+          {m.sender}, [{m.short_name}] · {formatTime(m.timestamp)}
         </span>
                                 </Message.Footer>
                             </Message>
