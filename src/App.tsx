@@ -5,7 +5,7 @@ import {AppLayout} from "./AppLayout.tsx";
 export default function App() {
     return (
         <div className="app-root">
-            <AppLayout />
+                <AppLayout/>
         </div>
     );
 }

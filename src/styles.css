@@ -1,272 +1,66 @@
-.chat-shell {
-  display: flex;
-  height: 100dvh;
-}
-
-/* 🖥 Sidebar */
-.channel-sidebar {
-  width: 220px;
-  background: #f4f4f4;
-  border-right: 1px solid #ddd;
-  display: flex;
-  flex-direction: column;
-}
-
-.channel-item {
-  padding: 12px;
-  border: none;
-  background: none;
-  text-align: left;
-  cursor: pointer;
-}
-
-.channel-item.active {
-  background: #0b93f6;
-  color: white;
-}
-
-/* 💬 Chat-Bereich */
-.chat-main {
-  flex: 1;
-}
-
-/* 📱 Bottom Nav */
-.channel-bottom-nav {
-  display: none;
-}
-
-/* 📱 Mobile */
-@media (max-width: 900px) {
-  .chat-shell {
-    flex-direction: column;
-  }
-
-  .channel-sidebar {
-    display: none;
-  }
-
-  .channel-bottom-nav {
-    display: flex;
-    justify-content: space-around;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 56px;
-    background: #f7f7f7;
-    border-top: 1px solid #ddd;
-    z-index: 1000;
-  }
-
-  .channel-tab {
-    flex: 1;
-    border: none;
-    background: none;
-    cursor: pointer;
-  }
-
-  .channel-tab.active {
-    color: #0b93f6;
-    font-weight: bold;
-  }
-}
-
-/* Mobile Channel Menu */
-.mobile-channel-button {
-  background: none;
-  align-items: end;
-  border: none;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.mobile-channel-dropdown {
-  position: absolute;
-  top: 56px;
-  left: 0;
-  right: 0;
-  background: white;
-  border-bottom: 1px solid #ddd;
-  z-index: 1000;
-}
-
-.mobile-channel-item {
-  width: 100%;
-  padding: 12px;
-  border: none;
-  background: none;
-  text-align: left;
-}
-
-.mobile-channel-item.active {
-  background: #0b93f6;
-  color: white;
-}
-
-.header-content {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-}
-
-/* Titel */
-.header-title {
-  font-weight: 600;
-  font-size: 1rem;
-}
-
-/* Mobile only */
-.mobile-only {
-  display: none;
-}
-
-@media (max-width: 900px) {
-  .mobile-only {
-    display: block;
-  }
-}
-
-.mobile-channel-button {
-  background: none;
-  border: none;
-  font-size: 0.95rem;
-  font-weight: 600;
-  cursor: pointer;
-  padding: 4px 8px;
-}
-
-.header-title {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-weight: 600;
-}
-
-/* Status Dot */
-.status-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-}
-
-/* Farben */
-.status-dot.connected {
-  background: #2ecc71; /* grün */
-}
-
-.status-dot.connecting {
-  background: #f1c40f; /* gelb */
-  animation: pulse 1.2s infinite;
-}
-
-.status-dot.offline {
-  background: #e74c3c; /* rot */
-}
-
-/* Pulse Animation */
-@keyframes pulse {
-  0% { opacity: 0.4; }
-  50% { opacity: 1; }
-  100% { opacity: 0.4; }
-}
-
-.mobile-channel-button {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-/* Arrow */
-.arrow {
-  display: inline-block;
-  transition: transform 0.2s ease;
-}
-
-/* Rotiert beim Öffnen */
-.arrow.open {
-  transform: rotate(180deg);
-}
-
-.msg-meta {
-  font-size: 0.75rem;
-  color: #777;
-}
-
-
-html,
-body,
-#root {
+/* Root */
+html, body, #root {
   height: 100%;
   margin: 0;
 }
 
 .app-root {
-  display: flex;
   height: 100vh;
-  width: 100vw;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Content + Footer */
+.app-content {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
 }
 
 /* LINKS: CHAT */
 .left-pane {
-  width: 500px;          /* gut für Chat */
+  width: 500px;
   min-width: 320px;
   border-right: 1px solid #ddd;
   display: flex;
 }
 
-/* RECHTS */
+/* RECHTS: MAP + LISTE */
 .right-pane {
   flex: 1;
   display: flex;
   flex-direction: column;
+  height: 100%;
 }
 
-/* OBEN: MAP */
-.map-pane {
-  flex: 1;               /* Map bekommt mehr Platz */
-  border-bottom: 1px solid #ddd;
-}
-
-/* UNTEN: LISTE */
-.list-pane {
-  flex: 2;
-  overflow-y: auto;
-}
-
+/* MAP */
 .map-pane {
   flex: 2;
   position: relative;
+  border-bottom: 1px solid #ddd;
 }
 
 .map-pane > * {
   height: 100%;
 }
 
-/* PrimeReact Table feinjustieren */
-.node-table .p-datatable-thead > tr > th {
+/* LISTE */
+.list-pane {
+  flex: 1;
+  overflow-y: auto;
+}
+
+/* FOOTER */
+.app-footer {
+  height: 48px;
+  flex-shrink: 0;
+  border-top: 1px solid var(--surface-border);
+  padding: 0 1.5rem;
   font-size: 0.75rem;
-  font-weight: 600;
 }
 
-.node-table .p-datatable-tbody > tr > td {
-  font-size: 0.75rem;
-  padding: 6px 8px;
-}
-
-/* RSSI Farben */
-.rssi-ok {
-  color: #2e7d32;
-  font-weight: 500;
-}
-
-.rssi-warn {
-  color: #c62828;
-  font-weight: 500;
-}
-
-/* Tabelle füllt Panel sauber */
-.p-datatable {
-  height: 100%;
+.device-navbar {
+  border-radius: 1px;
+  border-bottom: 1px solid var(--surface-border);
+  padding: 0 1.5rem;
 }
