@@ -1,5 +1,6 @@
 import { Toolbar } from "primereact/toolbar";
 import { Tag } from "primereact/tag";
+import {vitest} from "globals";
 
 export function AppFooter() {
     const left = (
@@ -7,6 +8,8 @@ export function AppFooter() {
       Meshtastic Local Client
     </span>
     );
+
+    const version = import.meta.env.VITE_APP_VERSION
 
     const center = (
         <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
@@ -16,7 +19,7 @@ export function AppFooter() {
 
     const right = (
         <span style={{ fontSize: "0.75rem", opacity: 0.7 }}>
-      v0.1.0
+      {version}
     </span>
     );
 
