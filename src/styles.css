@@ -64,3 +64,57 @@ html, body, #root {
   border-bottom: 1px solid var(--surface-border);
   padding: 0 1.5rem;
 }
+
+.device-dialog {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  font-size: 0.9rem;
+}
+
+/* Hover */
+.node-table .p-datatable-tbody > tr:hover {
+  cursor: pointer;
+  background: var(--surface-hover);
+}
+
+/* Ausgewählte Zeile */
+.node-table .p-datatable-tbody > tr.p-highlight {
+  background: rgba(33, 150, 243, 0.08);
+}
+
+/* Fokus (Keyboard) */
+.node-table .p-datatable-tbody > tr:focus {
+  outline: none;
+}
+
+@media (max-width: 900px) {
+
+  .app-content {
+    flex-direction: column;
+  }
+
+  .left-pane {
+    width: 100%;
+    min-width: unset;
+    border-right: none;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .right-pane {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .map-pane {
+    height: 280px;   /* wichtig: Map braucht feste Höhe */
+    flex: none;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .list-pane {
+    height: auto;
+    flex: none;
+    max-height: 40vh;
+  }
+}
