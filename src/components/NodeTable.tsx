@@ -17,6 +17,7 @@ export function NodeTable({ nodes }: { nodes: NodeInfo[] }) {
     return (
         <>
             <DataTable
+                key={now}
                 value={nodes}
                 size="small"
                 stripedRows
@@ -53,7 +54,8 @@ export function NodeTable({ nodes }: { nodes: NodeInfo[] }) {
                 <Column
                     field="last_seen"
                     header="Last seen"
-                    body={(n: NodeInfo) => timeAgo(n.last_seen, now)}
+                    body={(n: NodeInfo) =>
+                        timeAgo(n.last_seen, now)}
                 />
             </DataTable>
 
