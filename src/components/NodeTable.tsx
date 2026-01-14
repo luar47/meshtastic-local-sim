@@ -13,7 +13,6 @@ export function NodeTable({ nodes }: { nodes: NodeInfo[] }) {
     const [selectedNode, setSelectedNode] = useState<NodeInfo | null>(null);
     const [dialogVisible, setDialogVisible] = useState(false);
     const now = useNow(1000)
-    void now;
 
     return (
         <>
@@ -54,7 +53,7 @@ export function NodeTable({ nodes }: { nodes: NodeInfo[] }) {
                 <Column
                     field="last_seen"
                     header="Last seen"
-                    body={(n: NodeInfo) => timeAgo(n.last_seen)}
+                    body={(n: NodeInfo) => timeAgo(n.last_seen, now)}
                 />
             </DataTable>
 

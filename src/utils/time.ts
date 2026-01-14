@@ -1,5 +1,4 @@
-export function timeAgo(timestamp: number): string {
-    const now = Date.now();
+export function timeAgo(timestamp: number, now: number): string {
     const diff = Math.floor((now - timestamp) / 1000);
 
     if (diff < 5) return "gerade eben";

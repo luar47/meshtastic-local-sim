@@ -12,7 +12,6 @@ type Props = {
 
 export function DeviceDetailsDialog({ visible, device, onHide }: Props) {
     const now = useNow(1000)
-    void now;
 
     if (!device) return null;
     const online = device.rssi > -80;
@@ -54,7 +53,7 @@ export function DeviceDetailsDialog({ visible, device, onHide }: Props) {
                     <strong>Last seen:</strong>{" "}
                     {new Date(device.last_seen).toLocaleString("de-DE")}
                     {" "}
-                    <a>({timeAgo(device.last_seen)})</a>
+                    <a>({timeAgo(device.last_seen, now)})</a>
                 </div>
             </div>
         </Dialog>
