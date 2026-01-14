@@ -12,6 +12,7 @@ type Props = {
 
 export function DeviceDetailsDialog({ visible, device, onHide }: Props) {
     const now = useNow(1000)
+    void now;
 
     if (!device) return null;
     const online = device.rssi > -80;

@@ -13,6 +13,7 @@ export function NodeTable({ nodes }: { nodes: NodeInfo[] }) {
     const [selectedNode, setSelectedNode] = useState<NodeInfo | null>(null);
     const [dialogVisible, setDialogVisible] = useState(false);
     const now = useNow(1000)
+    void now;
 
     return (
         <>
