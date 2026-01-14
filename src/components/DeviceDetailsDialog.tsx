@@ -1,6 +1,8 @@
 import { Dialog } from "primereact/dialog";
 import { Tag } from "primereact/tag";
 import type { NodeInfo } from "../types/nodes";
+import {useNow} from "../hooks/useNow.ts";
+import {timeAgo} from "../utils/time.ts";
 
 type Props = {
     visible: boolean;
@@ -9,8 +11,9 @@ type Props = {
 };
 
 export function DeviceDetailsDialog({ visible, device, onHide }: Props) {
-    if (!device) return null;
+    const now = useNow(1000)
 
+    if (!device) return null;
     const online = device.rssi > -80;
 
     return (
@@ -49,6 +52,8 @@ export function DeviceDetailsDialog({ visible, device, onHide }: Props) {
                 <div>
                     <strong>Last seen:</strong>{" "}
                     {new Date(device.last_seen).toLocaleString("de-DE")}
+                    {" "}
+                    <a>({timeAgo(device.last_seen)})</a>
                 </div>
             </div>
         </Dialog>

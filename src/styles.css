@@ -77,6 +77,12 @@ html, body, #root {
   flex: 1;
 }
 
+.last-seen {
+  font-size: 0.75rem;
+  color: #666;
+  white-space: nowrap;
+}
+
 /* Hover */
 .node-table .p-datatable-tbody > tr:hover {
   cursor: pointer;

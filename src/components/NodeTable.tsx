@@ -4,13 +4,15 @@ import { Column } from "primereact/column";
 import type { NodeInfo } from "../types/nodes";
 import { DeviceDetailsDialog } from "./DeviceDetailsDialog";
 
-function formatTime(ts: number) {
-    return new Date(ts).toLocaleString("de-DE");
-}
+import { timeAgo } from "../utils/time";
+import { useNow } from "../hooks/useNow";
+
+
 
 export function NodeTable({ nodes }: { nodes: NodeInfo[] }) {
     const [selectedNode, setSelectedNode] = useState<NodeInfo | null>(null);
     const [dialogVisible, setDialogVisible] = useState(false);
+    const now = useNow(1000)
 
     return (
         <>
@@ -51,7 +53,7 @@ export function NodeTable({ nodes }: { nodes: NodeInfo[] }) {
                 <Column
                     field="last_seen"
                     header="Last seen"
-                    body={(n: NodeInfo) => formatTime(n.last_seen)}
+                    body={(n: NodeInfo) => timeAgo(n.last_seen)}
                 />
             </DataTable>
 
