@@ -88,33 +88,47 @@ html, body, #root {
   outline: none;
 }
 
+.leaflet-container {
+  height: 100%;
+  width: 100%;
+}
+
 @media (max-width: 900px) {
 
   .app-content {
+    display: flex;
     flex-direction: column;
+    overflow-y: auto;
   }
 
+  /* CHAT */
   .left-pane {
     width: 100%;
     min-width: unset;
+    flex: none;
     border-right: none;
     border-bottom: 1px solid #ddd;
   }
 
+  /* RECHTS (Map + Liste) */
   .right-pane {
     width: 100%;
+    display: flex;
     flex-direction: column;
+    flex: none;
   }
 
+  /* MAP */
   .map-pane {
-    height: 280px;   /* wichtig: Map braucht feste Höhe */
+    height: 260px;          /* ❗ Pflicht */
     flex: none;
     border-bottom: 1px solid #ddd;
   }
 
+  /* LISTE */
   .list-pane {
-    height: auto;
     flex: none;
-    max-height: 40vh;
+    max-height: 40vh;       /* scrollbarfähig */
+    overflow-y: auto;
   }
 }
