@@ -3,6 +3,8 @@ import { Tag } from "primereact/tag";
 import type { NodeInfo } from "../types/nodes";
 import {useNow} from "../hooks/useNow.ts";
 import {timeAgo} from "../utils/time.ts";
+import {DistanceCell} from "./nodetable/lastDistanceToUser.tsx";
+
 
 type Props = {
     visible: boolean;
@@ -16,6 +18,8 @@ export function DeviceDetailsDialog({ visible, device, onHide }: Props) {
     if (!device) return null;
     const online = device.rssi > -80;
 
+
+
     return (
         <Dialog
             header={`Gerät: ${device.shortname}`}
@@ -27,6 +31,10 @@ export function DeviceDetailsDialog({ visible, device, onHide }: Props) {
             <div className="device-dialog">
                 <div>
                     <strong>Name:</strong> {device.longname}
+                </div>
+                <div>
+                    <strong>Distanz:</strong> <DistanceCell node={device} ></DistanceCell>
+
                 </div>
 
                 <div>

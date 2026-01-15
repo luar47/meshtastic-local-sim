@@ -4,9 +4,9 @@ import { Column } from "primereact/column";
 
 import type { NodeInfo } from "../types/nodes";
 import { useNodeStore } from "../store/useNodeStore";
-import { useNow } from "../hooks/useNow";
-import { timeAgo } from "../utils/time";
+import { LastSeenCell } from "./nodetable/lastSeenCell.tsx";import { timeAgo } from "../utils/time";
 import { DeviceDetailsDialog } from "./DeviceDetailsDialog";
+import {DistanceCell} from "./nodetable/lastDistanceToUser.tsx";
 
 export function NodeTable() {
     const [dialogVisible, setDialogVisible] = useState(false);
@@ -16,8 +16,6 @@ export function NodeTable() {
     const selectedNode = useNodeStore((s) => s.selectedNode);
     const setSelectedNode = useNodeStore((s) => s.setSelectedNode);
 
-    // erzwingt Live-Update für Zeitachse
-    const now = useNow(1000);
 
     return (
         <>
@@ -68,20 +66,23 @@ export function NodeTable() {
                 />
 
                 <Column field="snr" header="SNR" style={{ width: "70px" }} />
+
+                <Column
+                    header="Distanz"
+                    body={(n: NodeInfo) => (
+                        <DistanceCell node={n} />
+                    )}
+                    style={{ width: "110px" }}
+                />
+
                 <Column field="hops_away" header="Hops" style={{ width: "70px" }} />
                 <Column field="hop_start" header="Start" style={{ width: "70px" }} />
+
 
                 {/* Zeit */}
                 <Column
                     header="Aktivität"
-                    sortField="last_seen"
-                    sortable
-                    body={(n: NodeInfo) => (
-                        <span className="last-seen">
-                            {timeAgo(n.last_seen, now)}
-                        </span>
-                    )}
-                    style={{ width: "140px" }}
+                    body={(n: NodeInfo) => <LastSeenCell ts={n.last_seen} />}
                 />
             </DataTable>
 
