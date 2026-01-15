@@ -1,5 +1,5 @@
 import { ChatLayout } from "./chat/ChatLayout.tsx";
-import { MapPanel } from "./layout/MapPanel";
+import { MapPanel } from "./components/MapPanel.tsx";
 import {NodeTable} from "./components/NodeTable.tsx";
 import {AppFooter} from "./components/AppFooter.tsx";
 import {DeviceNavbar} from "./components/DeviceNavbar.tsx";

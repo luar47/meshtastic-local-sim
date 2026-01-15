@@ -2,8 +2,8 @@ import { useEffect } from "react";
 import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import type { LatLngExpression } from "leaflet";
 
-import { useNodeStore } from "../store/useNodeStore";
-import type { NodeInfo } from "../types/nodes";
+import { useNodeStore } from "../store/useNodeStore.ts";
+import type { NodeInfo } from "../types/nodes.ts";
 
 // Karten-Zentrum (Fallback)
 const center: LatLngExpression = [49.75, 6.64];
