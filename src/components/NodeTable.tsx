@@ -1,64 +1,91 @@
 import { useState } from "react";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
+
 import type { NodeInfo } from "../types/nodes";
+import { useNodeStore } from "../store/useNodeStore";
+import { useNow } from "../hooks/useNow";
+import { timeAgo } from "../utils/time";
 import { DeviceDetailsDialog } from "./DeviceDetailsDialog";
 
-import { timeAgo } from "../utils/time";
-import { useNow } from "../hooks/useNow";
-
-
-
-export function NodeTable({ nodes }: { nodes: NodeInfo[] }) {
-    const [selectedNode, setSelectedNode] = useState<NodeInfo | null>(null);
+export function NodeTable() {
     const [dialogVisible, setDialogVisible] = useState(false);
-    const now = useNow(1000)
+
+    // Zustand Store
+    const nodes = useNodeStore((s) => s.nodes);
+    const selectedNode = useNodeStore((s) => s.selectedNode);
+    const setSelectedNode = useNodeStore((s) => s.setSelectedNode);
+
+    // erzwingt Live-Update für Zeitachse
+    const now = useNow(1000);
 
     return (
         <>
             <DataTable
-                key={now}
                 value={nodes}
                 size="small"
                 stripedRows
+                rowHover
                 scrollable
                 scrollHeight="flex"
-                className="node-table"
+                className="node-table clickable"
+                dataKey="node_id"
                 selectionMode="single"
                 selection={selectedNode}
                 onSelectionChange={(e) => {
-                const node = e.value as NodeInfo | null;
-                setSelectedNode(node);
-                setDialogVisible(true);
-            }}
-                dataKey="node_id"
+                    const node = e.value as NodeInfo | null;
+                    if (node) {
+                        setSelectedNode(node);
+                        setDialogVisible(true);
+                    }
+                }}
+                emptyMessage="Keine Geräte gefunden"
+                header={`Nodes (${nodes.length})`}
             >
-                <Column field="shortname" header="Node" />
-                <Column field="longname" header="Name" />
-                <Column field="hardware" header="Hardware" />
+                {/* Basisinfos */}
+                <Column field="shortname" header="Node" style={{ width: "90px" }} />
+                <Column field="longname" header="Name" style={{ minWidth: "160px" }} />
+                <Column field="hardware" header="HW" style={{ width: "90px" }} />
 
+                {/* Funk */}
                 <Column
-                    field="rssi"
                     header="RSSI"
-                    body={(n: NodeInfo) => (
-                        <span className={n.rssi > -80 ? "rssi-ok" : "rssi-warn"}>
-                            {n.rssi} dBm
-                        </span>
-                    )}
+                    body={(n: NodeInfo) => {
+                        const cls =
+                            n.rssi > -70
+                                ? "rssi-ok"
+                                : n.rssi > -85
+                                    ? "rssi-mid"
+                                    : "rssi-warn";
+
+                        return (
+                            <span className={cls}>
+                                {n.rssi} dBm
+                            </span>
+                        );
+                    }}
+                    style={{ width: "90px" }}
                 />
 
-                <Column field="snr" header="SNR" />
-                <Column field="hops_away" header="Hops Away" />
-                <Column field="hop_start" header="Hops Start" />
+                <Column field="snr" header="SNR" style={{ width: "70px" }} />
+                <Column field="hops_away" header="Hops" style={{ width: "70px" }} />
+                <Column field="hop_start" header="Start" style={{ width: "70px" }} />
 
+                {/* Zeit */}
                 <Column
-                    field="last_seen"
-                    header="Last seen"
-                    body={(n: NodeInfo) =>
-                        timeAgo(n.last_seen, now)}
+                    header="Aktivität"
+                    sortField="last_seen"
+                    sortable
+                    body={(n: NodeInfo) => (
+                        <span className="last-seen">
+                            {timeAgo(n.last_seen, now)}
+                        </span>
+                    )}
+                    style={{ width: "140px" }}
                 />
             </DataTable>
 
+            {/* Details Dialog */}
             <DeviceDetailsDialog
                 visible={dialogVisible}
                 device={selectedNode}

@@ -1,6 +1,6 @@
 import { ChatLayout } from "./chat/ChatLayout.tsx";
 import { MapPanel } from "./layout/MapPanel";
-import {ListPanel} from "./layout/ListPanel.tsx";
+import {NodeTable} from "./components/NodeTable.tsx";
 import {AppFooter} from "./components/AppFooter.tsx";
 import {DeviceNavbar} from "./components/DeviceNavbar.tsx";
 
@@ -23,7 +23,7 @@ export function AppLayout() {
                     <MapPanel />
                 </div>
                 <div className="list-pane">
-                    <ListPanel />
+                    <NodeTable />
                 </div>
             </div>
         </div>
