@@ -4,7 +4,7 @@ import { Column } from "primereact/column";
 
 import type { NodeInfo } from "../types/nodes";
 import { useNodeStore } from "../store/useNodeStore";
-import { LastSeenCell } from "./nodetable/lastSeenCell.tsx";import { timeAgo } from "../utils/time";
+import { LastSeenCell } from "./nodetable/lastSeenCell.tsx";
 import { DeviceDetailsDialog } from "./DeviceDetailsDialog";
 import {DistanceCell} from "./nodetable/lastDistanceToUser.tsx";
 
