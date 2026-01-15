@@ -43,7 +43,16 @@ export function NodeTable() {
                 {/* Basisinfos */}
                 <Column field="shortname" header="Node" style={{ width: "90px" }} />
                 <Column field="longname" header="Name" style={{ minWidth: "160px" }} />
-                <Column field="hardware" header="HW" style={{ width: "90px" }} />
+                <Column
+                    header="Distanz"
+                    body={(n: NodeInfo) => (
+                        <DistanceCell node={n} />
+                    )}
+                    style={{ width: "110px" }}
+
+                />
+                <Column header="Höhe" field="maps_marker.altitude"/>
+
 
                 {/* Funk */}
                 <Column
@@ -67,16 +76,9 @@ export function NodeTable() {
 
                 <Column field="snr" header="SNR" style={{ width: "70px" }} />
 
-                <Column
-                    header="Distanz"
-                    body={(n: NodeInfo) => (
-                        <DistanceCell node={n} />
-                    )}
-                    style={{ width: "110px" }}
-                />
+
 
                 <Column field="hops_away" header="Hops" style={{ width: "70px" }} />
-                <Column field="hop_start" header="Start" style={{ width: "70px" }} />
 
 
                 {/* Zeit */}

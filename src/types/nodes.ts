@@ -3,6 +3,7 @@ export type MapMarker = {
     label: string;
     lat: number;
     lon: number;
+    altitude: number;
     last_seen: number;
     status: "online" | "idle" | "offline";
 };
@@ -10,6 +11,7 @@ export type MapMarker = {
 export type NodeInfo = {
     // Identität
     node_id: string;     // "!b9dad0a9"
+    node_from: number;
     shortname: string;
     longname: string;
     sender: string;

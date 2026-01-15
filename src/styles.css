@@ -144,3 +144,32 @@ html, body, #root {
     overflow-y: auto;
   }
 }
+
+
+.metrics-chart {
+  height: min(40vh, 360px);     /* Desktop Standard */
+  width: 100%;
+}
+
+/* Mobile */
+@media (max-width: 900px) {
+  .metrics-chart {
+    height: 220px;
+  }
+}
+
+
+.metrics-chart {
+
+  height: 360px;
+  width: 100%;
+}
+
+.device-dialog-root {
+  height: 100%;
+}
+
+.device-dialog-chart {
+  height: 100%;
+  min-height: 320px;   /* Sicherheitsnetz */
+}

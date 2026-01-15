@@ -6,6 +6,7 @@ import "primereact/resources/themes/lara-light-indigo/theme.css"; // modernes, r
 import "primereact/resources/primereact.min.css";                 // Core CSS
 import "primeicons/primeicons.css";                               // Icons
 import "./leafletFix"; // 👈 einmalig, zentral
+import "chartjs-adapter-date-fns";
 
 const rootElement = document.getElementById("root");
 
