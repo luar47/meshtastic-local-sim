@@ -3,9 +3,7 @@ import { MapPanel } from "./components/MapPanel.tsx";
 import {NodeTable} from "./components/NodeTable.tsx";
 import {AppFooter} from "./components/AppFooter.tsx";
 import {DeviceNavbar} from "./components/DeviceNavbar.tsx";
-
 export function AppLayout() {
-
 
     return (
         <div className="app-root">

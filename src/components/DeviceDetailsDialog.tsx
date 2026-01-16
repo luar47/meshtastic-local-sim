@@ -1,13 +1,16 @@
-import { Dialog } from "primereact/dialog";
-import { Tag } from "primereact/tag";
-import type { NodeInfo } from "../types/nodes";
+import {Dialog} from "primereact/dialog";
+import {Card} from 'primereact/card';
+import {Tag} from "primereact/tag";
+import {DeviceTechnicalDetailsPanel} from "./deviceDetailsOverlay/DeviceTechnicalDetailsPanel.tsx";
+import {SignalStrengthPanel} from "./deviceDetailsOverlay/SignalStrengthPanel.tsx";
+import type {NodeInfo} from "../types/nodes";
 import {DistanceCell} from "./nodetable/lastDistanceToUser.tsx";
 import {LastSeenCell} from "./nodetable/lastSeenCell.tsx";
-import { useEffect, useState } from "react";
-import { fetchNodeMetrics } from "../api/nodeMetrics";
-import { NodeMetricsChart } from "./NodeMetricsChart";
+import {useEffect, useState} from "react";
+import {fetchNodeMetrics} from "../api/nodeMetrics";
+import {NodeMetricsConnectionChart} from "./deviceDetailsOverlay/NodeMetricsConnectionChart.tsx";
 import type {NodeMetricsResponse} from "../api/nodeMetrics";
-
+import {NodeMetricsEnergyChart} from "./deviceDetailsOverlay/NodeMetricsEnergyChart.tsx";
 
 
 type Props = {
@@ -17,7 +20,7 @@ type Props = {
 };
 
 
-export function DeviceDetailsDialog({ visible, device, onHide }: Props) {
+export function DeviceDetailsDialog({visible, device, onHide}: Props) {
 
     const [metrics, setMetrics] = useState<NodeMetricsResponse | null>(null);
     const [loadingMetrics, setLoadingMetrics] = useState(false);
@@ -33,73 +36,81 @@ export function DeviceDetailsDialog({ visible, device, onHide }: Props) {
             .catch(console.error)
             .finally(() => setLoadingMetrics(false));
 
-        }, [visible, device?.node_id]);
-
+    }, [visible, device?.node_id]);
 
 
     if (!device) return null;
     const online = device.rssi > -80;
 
 
-
-
-
     return (
         <Dialog
             header={`Gerät: ${device.shortname}`}
             visible={visible}
-            style={{ width: "420px", height: "80vh" }}
+            style={{width: "80vh", height: "300vh"}}
             onHide={onHide}
             modal
             appendTo={document.body}
         >
             <div className="device-dialog">
-                <div>
-                    <strong>Name:</strong> {device.longname}
-                </div>
-                <div>
-                    <strong>Distanz:</strong> <DistanceCell node={device}></DistanceCell>
+                <Card className="device-card" title={device.longname}>
+                    <div className="device-header">
 
-                </div>
-
-                <div>
-                    <strong>ID:</strong> <code>{device.node_id}</code>
-                </div>
-
-                <div>
-                    <strong>Status:</strong>{" "}
-                    <Tag
-                        severity={online ? "success" : "danger"}
-                        value={online ? "Online" : "Schwach"}
-                    />
-                </div>
-
-                <div>
-                    <strong>RSSI:</strong> {device.rssi} dBm
-                </div>
-
-                <div>
-                    <strong>SNR:</strong> {device.snr} dB
-                </div>
-
-                <div>
-                    <strong>Last seen:</strong>{" "}
-                    {new Date(device.last_seen).toLocaleString("de-DE")}
-                    {" "}
-                    <LastSeenCell ts={device.last_seen}></LastSeenCell>
-                </div>
-                <div>
-
-                    <h4>Signalverlauf</h4>
-                    {loadingMetrics && <div>Lade Messdaten…</div>}
-                    <div className="device-dialog-root">
-                        <div className="device-dialog-chart" style={{position: "relative", height: "240vh"}}>
-
-                            {metrics && <NodeMetricsChart metrics={metrics}/>}
+                        <div className="device-status-row">
+                            <Tag
+                                severity={online ? "success" : "danger"}
+                                value={online ? "Online" : "Schwach"}
+                            />
+                            <a>Letztes Signal:</a>
+                            <LastSeenCell ts={device.last_seen} />
                         </div>
+
+                        <div className="device-distance-row">
+                            <i className="pi pi-map-marker" />
+                            <a>Distanz:</a>
+                            <DistanceCell node={device} />
+                        </div>
+
                     </div>
-                </div>
+                </Card>
+
+                <Card className="device-card">
+                    <SignalStrengthPanel
+                        rssi={device.rssi}
+                        snr={device.snr}
+                    />
+                </Card>
+
+                <DeviceTechnicalDetailsPanel node={device}/>
+
+
+                <Card className="device-card" title="Batterie und Verbindung">
+                    <div>
+                        <h3>Signalverlauf</h3>
+                        {loadingMetrics && <div>Lade Messdaten…</div>}
+                        <div className="device-dialog-root">
+                            <div className="device-dialog-chart" style={{position: "relative"}}>
+                                {metrics && <NodeMetricsConnectionChart metrics={metrics}/>}
+                            </div>
+
+                        </div>
+                        <div>
+                            <h3>Batteriezustand</h3>
+                            <div className="device-dialog-root">
+                                <div className="device-dialog-chart" style={{position: "relative"}}>
+                                    {metrics && <NodeMetricsEnergyChart metrics={metrics}/>}
+                                </div>
+                            </div>
+
+                            </div>
+                        </div>
+
+                </Card>
+
+
+
+
             </div>
         </Dialog>
-    );
+);
 }

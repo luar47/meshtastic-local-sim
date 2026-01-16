@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { Chart } from "primereact/chart";
-import type { NodeMetricsResponse } from "../api/nodeMetrics";
+import type { NodeMetricsResponse } from "../../api/nodeMetrics.ts";
 
 /**
  * Erwartetes Datenformat:
@@ -15,7 +15,7 @@ type Props = {
     metrics: NodeMetricsResponse;
 };
 
-export function NodeMetricsChart({ metrics }: Props) {
+export function NodeMetricsConnectionChart({ metrics }: Props) {
     /**
      * Chart.js DATA
      * → echte Time-Scale (x/y Objekte)
