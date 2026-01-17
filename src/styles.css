@@ -1,4 +1,6 @@
-/* Root */
+/* =========================
+   ROOT & BASE
+   ========================= */
 html, body, #root {
   height: 100%;
   margin: 0;
@@ -8,49 +10,17 @@ html, body, #root {
   height: 100vh;
   display: flex;
   flex-direction: column;
+  background: var(--surface-ground);
 }
 
-/* Content + Footer */
-.app-content {
-  flex: 1;
-  display: flex;
-  overflow: hidden;
+/* =========================
+   NAVBAR & FOOTER
+   ========================= */
+.device-navbar {
+  border-bottom: 1px solid var(--surface-border);
+  padding: 0 1.5rem;
 }
 
-/* LINKS: CHAT */
-.left-pane {
-  width: 500px;
-  min-width: 320px;
-  border-right: 1px solid #ddd;
-  display: flex;
-}
-
-/* RECHTS: MAP + LISTE */
-.right-pane {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
-
-/* MAP */
-.map-pane {
-  flex: 1;
-  position: relative;
-  border-bottom: 1px solid #ddd;
-}
-
-.map-pane > * {
-  height: 100%;
-}
-
-/* LISTE */
-.list-pane {
-  flex: 1;
-  overflow-y: auto;
-}
-
-/* FOOTER */
 .app-footer {
   height: 48px;
   flex-shrink: 0;
@@ -59,22 +29,116 @@ html, body, #root {
   font-size: 0.75rem;
 }
 
-.device-navbar {
-  border-radius: 1px;
-  border-bottom: 1px solid var(--surface-border);
-  padding: 0 1.5rem;
+/* =========================
+   MAIN LAYOUT
+   ========================= */
+.app-content {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
 }
 
-.device-dialog {
+/* =========================
+   DEVICE DETAILS PANEL
+   ========================= */
+.device-panel {
+  width: 500px;
+  min-width: 320px;
+  background: var(--surface-card);
+  border-right: 1px solid var(--surface-border);
+  overflow-y: auto;
+}
+
+.device-panel-content {
+  padding: 0.75rem;
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
+}
+
+.device-placeholder {
+  padding: 1rem;
+  color: var(--text-color-secondary);
   font-size: 0.9rem;
 }
 
-.chat-shell {
-  width: 100%;
+/* =========================
+   MAIN PANEL (MAP + LIST)
+   ========================= */
+.main-panel {
   flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* MAP */
+.map-pane {
+  flex: 2;
+  position: relative;
+  border-bottom: 1px solid var(--surface-border);
+}
+
+.map-pane > * {
+  height: 80%;
+  width: 100%;
+}
+
+.leaflet-container {
+  height: 100%;
+  width: 100%;
+}
+
+/* LIST */
+.list-pane {
+  flex: 1;
+  overflow-y: auto;
+}
+
+/* =========================
+   NODE TABLE
+   ========================= */
+.node-table .p-datatable-tbody > tr:hover {
+  cursor: pointer;
+  background: var(--surface-hover);
+}
+
+.node-table .p-datatable-tbody > tr.p-highlight {
+  background: rgba(33, 150, 243, 0.08);
+}
+
+.node-table .p-datatable-tbody > tr:focus {
+  outline: none;
+}
+
+/* =========================
+   DEVICE DETAILS UI
+   ========================= */
+.device-card .p-card-body {
+  padding: 0.75rem;
+}
+
+.device-card .p-card-content {
+  padding: 0;
+}
+
+.device-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.device-status-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.device-distance-row {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--text-color-secondary);
+  font-size: 0.85rem;
 }
 
 .last-seen {
@@ -83,95 +147,9 @@ html, body, #root {
   white-space: nowrap;
 }
 
-/* Hover */
-.node-table .p-datatable-tbody > tr:hover {
-  cursor: pointer;
-  background: var(--surface-hover);
-}
-
-/* Ausgewählte Zeile */
-.node-table .p-datatable-tbody > tr.p-highlight {
-  background: rgba(33, 150, 243, 0.08);
-}
-
-/* Fokus (Keyboard) */
-.node-table .p-datatable-tbody > tr:focus {
-  outline: none;
-}
-
-.leaflet-container {
-  height: 100%;
-  width: 100%;
-}
-
-@media (max-width: 900px) {
-
-  .app-content {
-    display: flex;
-    flex-direction: column;
-    overflow-y: auto;
-  }
-
-  /* CHAT */
-  .left-pane {
-    display: none;
-    width: 100%;
-    min-width: unset;
-    flex: none;
-    border-right: none;
-    border-bottom: 1px solid #ddd;
-  }
-
-  /* RECHTS (Map + Liste) */
-  .right-pane {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    flex: none;
-  }
-
-  /* MAP */
-  .map-pane {
-    height: 260px;          /* ❗ Pflicht */
-    flex: none;
-    border-bottom: 1px solid #ddd;
-  }
-
-  /* LISTE */
-  .list-pane {
-    flex: 1;
-    max-height: 100%;       /* scrollbarfähig */
-    overflow-y: auto;
-  }
-}
-
-
-.metrics-chart {
-  width: 100%;
-}
-
-/* Mobile */
-@media (max-width: 900px) {
-  .metrics-chart {
-    height: 220px;
-  }
-}
-
-
-.metrics-chart {
-
-  width: 100%;
-}
-
-.device-dialog-root {
-  height: 100%;
-}
-
-.device-dialog-chart {
-  height: 100%;
-     /* Sicherheitsnetz */
-}
-
+/* =========================
+   TECH DETAILS PANEL
+   ========================= */
 .tech-details-panel {
   margin-top: 1rem;
 }
@@ -201,25 +179,15 @@ html, body, #root {
   color: var(--text-color-secondary);
 }
 
-.tech-detail-label i {
-  font-size: 0.9rem;
-}
-
 .tech-detail-value {
   font-weight: 500;
-  color: var(--text-color);
 }
 
+/* =========================
+   SIGNAL STRENGTH PANEL
+   ========================= */
 .signal-panel {
   margin-top: 1rem;
-}
-
-.signal-panel h4 {
-  margin-bottom: 0.75rem;
-}
-
-.signal-row {
-  margin-bottom: 1rem;
 }
 
 .signal-header {
@@ -227,10 +195,6 @@ html, body, #root {
   justify-content: space-between;
   font-size: 0.85rem;
   margin-bottom: 0.35rem;
-}
-
-.signal-value {
-  font-weight: 500;
 }
 
 .signal-bar {
@@ -251,55 +215,33 @@ html, body, #root {
   background: #e74c3c;
 }
 
-.signal-summary {
-  margin-top: 0.5rem;
-  font-size: 0.85rem;
-  font-weight: 500;
+/* =========================
+   METRICS / CHARTS
+   ========================= */
+.device-dialog-chart {
+  width: 100%;
+  height: 150px;
+  position: relative;
 }
 
-/* Nur für deine Device-Details-Cards */
-.device-card .p-card-body {
-  padding: 0.75rem;   /* vorher ~1.5rem */
-
+.metrics-chart {
+  width: 100%;
+  height: 100%;
 }
 
-.device-card .p-card-content {
-  padding: 0;         /* oft doppelt vorhanden */
-}
-
-.device-header {
-  display: flex;
-  flex-direction: column;
-  gap: 0.6rem;              /* 🔥 Hauptabstand zwischen Zeilen */
-}
-
-.device-status-row {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;              /* Abstand zwischen Tag, Text, Zeit */
-}
-
-.device-distance-row {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  color: var(--text-color-secondary);
-  font-size: 0.85rem;
-}
-
-
+/* =========================
+   CHAT DRAWER (OPTIONAL)
+   ========================= */
 .chat-drawer {
   position: fixed;
   top: 0;
-  left: 0;
+  right: 0;
   height: 100vh;
-  width: 420px;
+  width: 380px;
   max-width: 90vw;
-
   background: var(--surface-card);
   border-right: 1px solid var(--surface-border);
-
-  transform: translateX(-100%);
+  transform: translateX(100%);
   transition: transform 0.25s ease;
   z-index: 2000;
 }
@@ -310,21 +252,17 @@ html, body, #root {
 
 .chat-handle {
   position: fixed;
-  left: 0;
+  right: 0;
   top: 50%;
   transform: translateY(-50%);
-
   width: 28px;
   height: 80px;
-  border-radius: 0 8px 8px 0;
-
   background: var(--surface-card);
   border: 1px solid var(--surface-border);
   border-left: none;
-
+  border-radius: 8px 0 0 8px;
   cursor: pointer;
   z-index: 2001;
-
   display: flex;
   align-items: center;
   justify-content: center;
@@ -335,4 +273,61 @@ html, body, #root {
   inset: 0;
   background: rgba(0,0,0,0.25);
   z-index: 1999;
+}
+
+/* =========================
+   MOBILE
+   ========================= */
+@media (max-width: 900px) {
+  .app-content {
+    flex-direction: column;
+    overflow-y: auto;
+  }
+
+  .device-panel {
+    width: 100%;
+    min-width: unset;
+    border-right: none;
+    border-bottom: 1px solid var(--surface-border);
+  }
+
+  .map-pane {
+    min-height: 260px;
+    flex: none;
+  }
+
+  .device-dialog-chart {
+    height: 220px;
+  }
+}
+
+/* Tabelle darf horizontal scrollen */
+.node-table .p-datatable-wrapper {
+  overflow-x: auto;
+}
+
+/* Zahlen ruhiger */
+.node-table td {
+  white-space: nowrap;
+}
+
+/* Ausgewählte Zeile klarer */
+.node-table .p-highlight {
+  background: rgba(33, 150, 243, 0.12) !important;
+}
+
+/* RSSI Farben */
+.rssi-ok {
+  color: #2e7d32;
+  font-weight: 500;
+}
+
+.rssi-mid {
+  color: #f57c00;
+  font-weight: 500;
+}
+
+.rssi-warn {
+  color: #c62828;
+  font-weight: 500;
 }
