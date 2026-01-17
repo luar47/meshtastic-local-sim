@@ -287,6 +287,7 @@ html, body, #root {
   font-size: 0.85rem;
 }
 
+
 .chat-drawer {
   position: fixed;
   top: 0;
@@ -300,10 +301,7 @@ html, body, #root {
 
   transform: translateX(-100%);
   transition: transform 0.25s ease;
-  z-index: 1000;
-
-  display: flex;
-  flex-direction: column;
+  z-index: 2000;
 }
 
 .chat-drawer.open {
@@ -312,30 +310,29 @@ html, body, #root {
 
 .chat-handle {
   position: fixed;
-  top: 50%;
   left: 0;
+  top: 50%;
   transform: translateY(-50%);
 
   width: 28px;
   height: 80px;
+  border-radius: 0 8px 8px 0;
 
   background: var(--surface-card);
   border: 1px solid var(--surface-border);
   border-left: none;
-  border-radius: 0 8px 8px 0;
 
   cursor: pointer;
+  z-index: 2001;
+
   display: flex;
   align-items: center;
   justify-content: center;
-
-  z-index: 1001;
-  box-shadow: 2px 0 6px rgba(0, 0, 0, 0.08);
 }
 
 .chat-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.25);
-  z-index: 999;
+  background: rgba(0,0,0,0.25);
+  z-index: 1999;
 }

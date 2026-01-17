@@ -72,9 +72,7 @@ export function DeviceDetailsDialog({visible, device, onHide}: Props) {
                         </div>
 
                     </div>
-                </Card>
 
-                <Card className="device-card">
                     <SignalStrengthPanel
                         rssi={device.rssi}
                         snr={device.snr}
