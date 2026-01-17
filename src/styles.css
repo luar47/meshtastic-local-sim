@@ -36,6 +36,7 @@ html, body, #root {
   flex: 1;
   display: flex;
   overflow: hidden;
+  height: 100%;
 }
 
 /* =========================
@@ -63,11 +64,12 @@ html, body, #root {
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  height: 100%;
 }
 
 /* MAP */
 .map-pane {
-  flex: 2;
+  flex: 1.4;
   position: relative;
   border-bottom: 1px solid var(--surface-border);
 }
@@ -84,7 +86,7 @@ html, body, #root {
 
 /* LIST */
 .list-pane {
-  flex: 1;
+  flex: 1.6;
   overflow-y: auto;
 }
 
@@ -93,16 +95,38 @@ html, body, #root {
    ========================= */
 .chat-dock {
   width: 420px;
-  max-width: 40vw;
+  min-width: 320px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
   background: var(--surface-card);
   border-left: 1px solid var(--surface-border);
-  display: flex;
   overflow: hidden;
 }
 
+/* Chatscope Root */
 .chat-shell {
-  width: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
   height: 100%;
+}
+
+/* Chatscope intern */
+.chat-shell .cs-main-container,
+.chat-shell .cs-chat-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-shell .cs-message-list {
+  flex: 1 1 auto;
+  overflow-y: auto;
+}
+
+.chat-shell .cs-message-input {
+  flex-shrink: 0;
 }
 
 /* Chat Handle */
@@ -110,6 +134,7 @@ html, body, #root {
   position: fixed;
   right: 0;
   top: 50%;
+  transform: translateY(-50%);
   width: 28px;
   height: 80px;
   background: var(--surface-card);
@@ -163,7 +188,7 @@ html, body, #root {
    DEVICE DETAILS UI
    ========================= */
 .device-card .p-card-body {
-  padding: 1.75rem;
+  padding: 1.25rem;
 }
 
 .device-card .p-card-content {
@@ -226,13 +251,14 @@ html, body, #root {
   margin-bottom: 0.35rem;
 }
 
-/* Basis ProgressBar */
+/* PrimeReact ProgressBar */
 .signal-bar.p-progressbar {
   height: 8px;
   border-radius: 4px;
+  background: var(--surface-border);
 }
 
-/* Farben – korrekt an PrimeReact gebunden */
+/* Farben */
 .signal-bar.success .p-progressbar-value {
   background-color: #2ecc71 !important;
 }
@@ -260,6 +286,41 @@ html, body, #root {
 }
 
 /* =========================
+   CHAT HEADER ACTIONS
+   ========================= */
+.header-content {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.header-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+}
+
+.header-actions {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.chat-undock-btn {
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 1.4rem;
+  color: var(--text-color-secondary);
+}
+
+.chat-undock-btn:hover {
+  color: var(--text-color);
+}
+
+/* =========================
    MOBILE
    ========================= */
 @media (max-width: 900px) {
@@ -269,6 +330,7 @@ html, body, #root {
     overflow-y: auto;
   }
 
+  /* Device Details fullscreen */
   .device-panel {
     width: 100%;
     min-width: unset;
@@ -276,64 +338,23 @@ html, body, #root {
     border-bottom: 1px solid var(--surface-border);
   }
 
+  /* Map kompakt */
   .map-pane {
     min-height: 260px;
     flex: none;
   }
 
+  /* Chat fullscreen */
   .chat-dock {
-    width: 100%;
-    max-width: 100%;
-    height: 320px;
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 3000;
     border-left: none;
-    border-top: 1px solid var(--surface-border);
   }
-}
 
-.chat-undock-btn {
-  border: none;
-  background: none;
-  cursor: pointer;
-  font-size: 1.5rem;
-  padding: 0 4px;
-  color: var(--text-color-secondary);
-}
-
-.chat-undock-btn:hover {
-  color: var(--text-color);
-}
-
-.header-content {
-  display: flex;
-  align-items: center;
-  width: 100%;
-}
-
-/* Titel bleibt links */
-.header-title {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-weight: 600;
-}
-
-/* 🔥 DAS ist der Schlüssel */
-.header-actions {
-  margin-left: auto;          /* schiebt nach ganz rechts */
-  display: flex;
-  align-items: center;
-  gap: 10px;
-
-}
-
-/* =========================
-   MOBILE DEVICE DETAILS HEADER
-   ========================= */
-.device-mobile-header {
-  display: none;
-}
-
-@media (max-width: 900px) {
+  /* Mobile Device Header */
   .device-mobile-header {
     display: flex;
     align-items: center;
@@ -354,7 +375,7 @@ html, body, #root {
   .device-mobile-close {
     border: none;
     background: none;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     cursor: pointer;
     color: var(--text-color-secondary);
   }
