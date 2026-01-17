@@ -1,428 +1,414 @@
 /* =========================
-   ROOT & BASE
+   DESIGN TOKENS
    ========================= */
-html, body, #root {
-  height: 100%;
-  margin: 0;
+:root {
+    /* Backgrounds */
+    --app-bg: #f5f7fa;
+    --panel-bg: #ffffff;
+
+    /* Borders */
+    --border-subtle: #e3e7ee;
+
+    /* Text */
+    --text-primary: #1f2937;
+    --text-secondary: #6b7280;
+
+    /* Accent */
+    --accent: #2563eb;
+    --accent-soft: #e0e7ff;
+
+    /* Status */
+    --success: #16a34a;
+    --warning: #d97706;
+    --danger: #dc2626;
+}
+
+/* =========================
+   BASE
+   ========================= */
+html,
+body,
+#root {
+    height: 100%;
+    margin: 0;
+}
+
+h3 {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-primary);
 }
 
 .app-root {
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  background: var(--surface-ground);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: var(--app-bg);
 }
 
 /* =========================
    NAVBAR & FOOTER
    ========================= */
 .device-navbar {
-  border-bottom: 1px solid var(--surface-border);
-  padding: 0 1.5rem;
+    border-bottom: 1px solid var(--border-subtle);
+    padding: 0 1.5rem;
+    justify-content: space-between;
+
 }
 
 .app-footer {
-  height: 48px;
-  flex-shrink: 0;
-  border-top: 1px solid var(--surface-border);
-  padding: 0 1.5rem;
-  font-size: 0.75rem;
+    height: 48px;
+    border-top: 1px solid var(--border-subtle);
+    padding: 0 1.5rem;
+    font-size: 0.75rem;
+
+    flex-shrink: 0;
 }
 
 /* =========================
    MAIN LAYOUT
    ========================= */
 .app-content {
-  flex: 1;
-  display: flex;
-  overflow: hidden;
-  height: 100%;
+    flex: 1;
+    display: flex;
+    overflow: hidden;
 }
 
 /* =========================
-   DEVICE DETAILS PANEL (LEFT)
+   DEVICE DETAILS PANEL
    ========================= */
 .device-panel {
-  width: 600px;
-  min-width: 320px;
-  background: var(--surface-card);
-  border-right: 1px solid var(--surface-border);
-  overflow-y: auto;
+    width: 600px;
+    min-width: 320px;
+    background: var(--panel-bg);
+    border-right: 1px solid var(--border-subtle);
+    overflow-y: auto;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
 }
 
 .device-panel-empty {
-  padding: 1rem;
-  color: var(--text-color-secondary);
-  font-size: 0.9rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.75rem;
+    text-align: center;
+    color: var(--text-secondary);
+    padding: 1.5rem;
+}
+
+.device-panel-empty i {
+    font-size: 2rem;
+    opacity: 0.6;
 }
 
 /* =========================
    MAIN PANEL (MAP + LIST)
    ========================= */
 .main-panel {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  height: 100%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: var(--panel-bg);
 }
 
-/* MAP */
 .map-pane {
-  flex: 1.4;
-  position: relative;
-  border-bottom: 1px solid var(--surface-border);
+    flex: 1.4;
+    border-bottom: 1px solid var(--border-subtle);
 }
 
 .map-pane > * {
-  height: 100%;
-  width: 100%;
+    height: 100%;
+    width: 100%;
 }
 
 .leaflet-container {
-  height: 100%;
-  width: 100%;
+    height: 100%;
+    width: 100%;
 }
 
-/* LIST */
 .list-pane {
-  flex: 1.6;
-  overflow-y: auto;
-}
-
-/* =========================
-   CHAT (DOCKED RIGHT)
-   ========================= */
-.chat-dock {
-  width: 420px;
-  min-width: 320px;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  background: var(--surface-card);
-  border-left: 1px solid var(--surface-border);
-  overflow: hidden;
-}
-
-/* Chatscope Root */
-.chat-shell {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
-
-/* Chatscope intern */
-.chat-shell .cs-main-container,
-.chat-shell .cs-chat-container {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
-.chat-shell .cs-message-list {
-  flex: 1 1 auto;
-  overflow-y: auto;
-}
-
-.chat-shell .cs-message-input {
-  flex-shrink: 0;
-}
-
-/* Chat Handle */
-.chat-handle {
-  position: fixed;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 28px;
-  height: 80px;
-  background: var(--surface-card);
-  border: 1px solid var(--surface-border);
-  border-right: none;
-  border-radius: 8px 0 0 8px;
-  cursor: pointer;
-  z-index: 2001;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    flex: 1.6;
+    overflow-y: auto;
 }
 
 /* =========================
    NODE TABLE
    ========================= */
-.node-table .p-datatable-tbody > tr:hover {
-  cursor: pointer;
-  background: var(--surface-hover);
-}
-
-.node-table .p-datatable-tbody > tr.p-highlight {
-  background: rgba(33, 150, 243, 0.12);
-}
-
-.node-table .p-datatable-wrapper {
-  overflow-x: auto;
+.node-table .p-datatable-thead th {
+    background: #f9fafb;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-secondary);
 }
 
 .node-table td {
-  white-space: nowrap;
+    padding: 0.65rem 0.75rem;
+    white-space: nowrap;
 }
 
-/* RSSI Farben */
-.rssi-ok {
-  color: #2e7d32;
-  font-weight: 500;
+.node-table tr.p-highlight {
+    background: var(--accent-soft);
 }
 
-.rssi-mid {
-  color: #f57c00;
-  font-weight: 500;
+.node-table tr.p-highlight td:first-child {
+    border-left: 3px solid var(--accent);
 }
 
-.rssi-warn {
-  color: #c62828;
-  font-weight: 500;
+.node-table .p-datatable-tbody > tr:hover {
+    cursor: pointer;
+    background: #f1f5f9;
 }
+
+.node-table .p-datatable-wrapper {
+    overflow-x: auto;
+}
+
+/* RSSI */
+.rssi-ok { color: #2e7d32; font-weight: 500; }
+.rssi-mid { color: #f57c00; font-weight: 500; }
+.rssi-warn { color: #c62828; font-weight: 500; }
 
 /* =========================
    DEVICE DETAILS UI
    ========================= */
 .device-card .p-card-body {
-  padding: 1.25rem;
+    padding: 1.25rem;
 }
 
 .device-card .p-card-content {
-  padding: 0;
+    padding: 0;
 }
 
 .device-header {
-  display: flex;
-  flex-direction: column;
-  gap: 0.6rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
 }
 
 .device-status-row,
 .device-distance-row {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 .device-distance-row {
-  font-size: 0.85rem;
-  color: var(--text-color-secondary);
+    font-size: 0.85rem;
+    color: var(--text-secondary);
 }
 
 .last-seen {
-  font-size: 0.75rem;
-  color: #666;
+    font-size: 0.75rem;
+    color: var(--text-secondary);
 }
 
 /* =========================
-   TECH DETAILS PANEL
+   TECH DETAILS
    ========================= */
 .tech-details-panel {
-  margin-top: 1rem;
+    margin-top: 1rem;
 }
 
 .tech-detail-row {
-  display: flex;
-  justify-content: space-between;
-  padding: 0.6rem 0;
-  border-bottom: 1px solid var(--surface-border);
-  font-size: 0.85rem;
+    display: flex;
+    justify-content: space-between;
+    padding: 0.6rem 0;
+    border-bottom: 1px solid var(--border-subtle);
+    font-size: 0.85rem;
 }
 
 .tech-detail-row:last-child {
-  border-bottom: none;
+    border-bottom: none;
 }
 
 /* =========================
-   SIGNAL STRENGTH PANEL (FIXED)
+   SIGNAL STRENGTH
    ========================= */
 .signal-panel {
-  margin-top: 1rem;
+    margin-top: 1rem;
 }
 
 .signal-header {
-  display: flex;
-  justify-content: space-between;
-  font-size: 0.85rem;
-  margin-bottom: 0.35rem;
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    margin-bottom: 0.35rem;
 }
 
-/* PrimeReact ProgressBar */
 .signal-bar.p-progressbar {
-  height: 8px;
-  border-radius: 4px;
-  background: var(--surface-border);
+    height: 8px;
+    border-radius: 4px;
+    background: var(--border-subtle);
 }
 
-/* Farben */
 .signal-bar.success .p-progressbar-value {
-  background-color: #2ecc71 !important;
+    background-color: #2ecc71 !important;
 }
 
 .signal-bar.warning .p-progressbar-value {
-  background-color: #f1c40f !important;
+    background-color: #f1c40f !important;
 }
 
 .signal-bar.danger .p-progressbar-value {
-  background-color: #e74c3c !important;
+    background-color: #e74c3c !important;
 }
 
 /* =========================
    METRICS / CHARTS
    ========================= */
 .device-dialog-chart {
-  width: 100%;
-  height: 180px;
-  position: relative;
+    width: 100%;
+    height: 180px;
+    position: relative;
 }
 
 .metrics-chart {
-  width: 100%;
-  height: 100%;
+    width: 100%;
+    height: 100%;
 }
 
 /* =========================
-   CHAT HEADER ACTIONS
+   CHAT (DESKTOP DOCK)
    ========================= */
-.header-content {
-  display: flex;
-  align-items: center;
-  width: 100%;
+.chat-dock {
+    width: 420px;
+    min-width: 320px;
+    background: var(--panel-bg);
+    border-left: 1px solid var(--border-subtle);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
 }
 
-.header-title {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-weight: 600;
+.chat-shell {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
 }
 
-.header-actions {
-  margin-left: auto;
-  display: flex;
-  align-items: center;
-  gap: 10px;
+/* Chatscope overrides */
+.cs-conversation-header {
+    background: #f9fafb !important;
+    border-bottom: 1px solid var(--border-subtle) !important;
 }
 
-.chat-undock-btn {
-  border: none;
-  background: none;
-  cursor: pointer;
-  font-size: 1.4rem;
-  color: var(--text-color-secondary);
+.cs-message-list {
+    background: #ffffff;
 }
 
-.chat-undock-btn:hover {
-  color: var(--text-color);
+.cs-message__content {
+    background: #f3f4f6 !important;
+    border-radius: 12px !important;
+    font-size: 0.85rem;
+    color: var(--text-primary);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+}
+
+.cs-message--outgoing .cs-message__content {
+    background: var(--accent-soft);
+}
+
+.cs-message-input {
+    border-top: 1px solid var(--border-subtle);
+    background: #fafafa;
+}
+
+.cs-message-input__content-editor {
+    font-size: 0.85rem;
+}
+
+/* =========================
+   CHAT HANDLE
+   ========================= */
+.chat-handle {
+    position: fixed;
+    right: 0;
+    top: 30%;
+    transform: translateY(-50%);
+
+    width: 28px;
+    height: 80px;
+
+    background: var(--panel-bg);
+    border: 2px solid var(--border-subtle);
+    border-right: none;
+    border-color: var(--text-secondary);
+    border-radius: 8px 0 0 8px;
+
+    cursor: pointer;
+    z-index: 2001;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+@media (max-width: 900px) {
+    .chat-handle {
+        display: none;   /* 🔥 wichtig */
+    }
 }
 
 /* =========================
    MOBILE
    ========================= */
 @media (max-width: 900px) {
+    .app-content {
+        flex-direction: column;
+        overflow-y: auto;
+    }
 
-  .app-content {
-    flex-direction: column;
-    overflow-y: auto;
-  }
+    .device-panel {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid var(--border-subtle);
+    }
 
-  /* Device Details fullscreen */
-  .device-panel {
-    width: 100%;
-    min-width: unset;
-    border-right: none;
-    border-bottom: 1px solid var(--surface-border);
-  }
+    .map-pane {
+        min-height: 260px;
+        flex: none;
+    }
 
-  /* Map kompakt */
-  .map-pane {
-    min-height: 260px;
-    flex: none;
-  }
+    .chat-dock {
+        position: fixed;
+        inset: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: 3000;
+        border-left: none;
+    }
 
-  /* Chat fullscreen */
-  .chat-dock {
-    position: fixed;
-    inset: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: 3000;
-    border-left: none;
-  }
-
-  /* Mobile Device Header */
-  .device-mobile-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0.75rem 1rem;
-    border-bottom: 1px solid var(--surface-border);
-    background: var(--surface-card);
-    position: sticky;
-    top: 0;
-    z-index: 5;
-  }
-
-  .device-mobile-title {
-    font-weight: 600;
-    font-size: 0.95rem;
-  }
-
-  .device-mobile-close {
-    border: none;
-    background: none;
-    font-size: 1.2rem;
-    cursor: pointer;
-    color: var(--text-color-secondary);
-  }
-
-  .device-mobile-close:hover {
-    color: var(--text-color);
-  }
+    .device-mobile-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.75rem 1rem;
+        border-bottom: 1px solid var(--border-subtle);
+        background: var(--panel-bg);
+        position: sticky;
+        top: 0;
+        z-index: 5;
+    }
 }
 
+/* =========================
+   TRANSITIONS
+   ========================= */
 .device-fade {
-  animation: deviceFade 180ms ease-out;
+    animation: deviceFade 180ms ease-out;
 }
 
 @keyframes deviceFade {
-  from {
-    opacity: 0;
-    transform: translateY(4px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+    from { opacity: 0; transform: translateY(4px); }
+    to   { opacity: 1; transform: translateY(0); }
 }
 
-.device-panel-empty {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 0.75rem;
-  color: var(--text-color-secondary);
-  text-align: center;
-  padding: 1.5rem;
+.cs-message-input--disabled .cs-message-input__content-editor-wrapper {
+    border-top: 1px solid #e3e7ee;
+    background-color: #fafafa;
 }
 
-.device-panel-empty i {
-  font-size: 2rem;
-  opacity: 0.6;
-}
-
-.device-panel-empty h4 {
-  margin: 0;
-  font-weight: 600;
-}
-
-.device-panel-empty p {
-  font-size: 0.85rem;
-  max-width: 280px;
+.p-menubar .p-menubar-root-list {
+    z-index: 1000;
 }

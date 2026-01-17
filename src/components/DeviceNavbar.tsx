@@ -1,5 +1,4 @@
 import { Menubar } from "primereact/menubar";
-import { Tag } from "primereact/tag";
 
 export function DeviceNavbar() {
     const items = [
@@ -16,19 +15,16 @@ export function DeviceNavbar() {
 
     const start = (
         <strong style={{ paddingLeft: 8 }}>
-            SaarMosel.social Mesh
+            Meshtastic SaarMosel.social
         </strong>
     );
 
-    const end = (
-        <Tag severity="success" value="Online" />
-    );
+
 
     return (
         <Menubar
             model={items}
             start={start}
-            end={end}
             className="device-navbar"
         />
     );
