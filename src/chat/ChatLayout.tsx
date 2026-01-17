@@ -14,12 +14,16 @@ import {useEffect, useState} from "react";
 import {MobileChannelMenu} from "./MobileChannelMenu";
 import {connectChatSse} from "./chatSse";
 
+type Props = {
+    onUndock?: () => void;
+};
 
-export function ChatLayout() {
+export function ChatLayout({onUndock}: Props) {
     const [activeChannel, setActiveChannel] = useState("ch0");
     const [status] = useState<"connected" | "connecting" | "offline">(
         "connected"
     );
+
 
 
     const [messages, setMessages] = useState<ChatMessage[]>([]);
@@ -81,6 +85,7 @@ export function ChatLayout() {
         mockChannels.find(c => c.id === activeChannel)?.name ??
         "Channel";
 
+
     return (
         <div className="chat-shell">
 
@@ -94,6 +99,7 @@ export function ChatLayout() {
             {/* 💬 Chat Area */}
             <MainContainer className="chat-main">
                 <ChatContainer>
+
 
                     {/* 🔝 Header (Chatscope Slot) */}
                     <ConversationHeader>
@@ -114,12 +120,23 @@ export function ChatLayout() {
                                         onSelect={setActiveChannel}
                                     />
                                 </div>
+                                {/* 🔽 UNDOCK BUTTON */}
+                                {onUndock && (
+                                    <button
+                                        className="chat-undock-btn"
+                                        onClick={onUndock}
+                                        title="Chat schließen"
+                                    >
+                                        ✕
+                                    </button>
+                                )}
 
                             </div>
                         </ConversationHeader.Content>
+
                     </ConversationHeader>
                     {/* 💬 Messages */}
-                    <MessageList style={{ flex: 1 }}>
+                    <MessageList style={{flex: 1}}>
                         {messages.map((m) => (
                             <Message
                                 key={m.id}

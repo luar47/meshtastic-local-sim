@@ -39,24 +39,17 @@ html, body, #root {
 }
 
 /* =========================
-   DEVICE DETAILS PANEL
+   DEVICE DETAILS PANEL (LEFT)
    ========================= */
 .device-panel {
-  width: 500px;
+  width: 600px;
   min-width: 320px;
   background: var(--surface-card);
   border-right: 1px solid var(--surface-border);
   overflow-y: auto;
 }
 
-.device-panel-content {
-  padding: 0.75rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-
-.device-placeholder {
+.device-panel-empty {
   padding: 1rem;
   color: var(--text-color-secondary);
   font-size: 0.9rem;
@@ -69,6 +62,7 @@ html, body, #root {
   flex: 1;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 
 /* MAP */
@@ -79,7 +73,7 @@ html, body, #root {
 }
 
 .map-pane > * {
-  height: 80%;
+  height: 100%;
   width: 100%;
 }
 
@@ -95,6 +89,41 @@ html, body, #root {
 }
 
 /* =========================
+   CHAT (DOCKED RIGHT)
+   ========================= */
+.chat-dock {
+  width: 420px;
+  max-width: 40vw;
+  background: var(--surface-card);
+  border-left: 1px solid var(--surface-border);
+  display: flex;
+  overflow: hidden;
+}
+
+.chat-shell {
+  width: 100%;
+  height: 100%;
+}
+
+/* Chat Handle */
+.chat-handle {
+  position: fixed;
+  right: 0;
+  top: 50%;
+  width: 28px;
+  height: 80px;
+  background: var(--surface-card);
+  border: 1px solid var(--surface-border);
+  border-right: none;
+  border-radius: 8px 0 0 8px;
+  cursor: pointer;
+  z-index: 2001;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* =========================
    NODE TABLE
    ========================= */
 .node-table .p-datatable-tbody > tr:hover {
@@ -103,18 +132,38 @@ html, body, #root {
 }
 
 .node-table .p-datatable-tbody > tr.p-highlight {
-  background: rgba(33, 150, 243, 0.08);
+  background: rgba(33, 150, 243, 0.12);
 }
 
-.node-table .p-datatable-tbody > tr:focus {
-  outline: none;
+.node-table .p-datatable-wrapper {
+  overflow-x: auto;
+}
+
+.node-table td {
+  white-space: nowrap;
+}
+
+/* RSSI Farben */
+.rssi-ok {
+  color: #2e7d32;
+  font-weight: 500;
+}
+
+.rssi-mid {
+  color: #f57c00;
+  font-weight: 500;
+}
+
+.rssi-warn {
+  color: #c62828;
+  font-weight: 500;
 }
 
 /* =========================
    DEVICE DETAILS UI
    ========================= */
 .device-card .p-card-body {
-  padding: 0.75rem;
+  padding: 1.75rem;
 }
 
 .device-card .p-card-content {
@@ -127,24 +176,21 @@ html, body, #root {
   gap: 0.6rem;
 }
 
-.device-status-row {
+.device-status-row,
+.device-distance-row {
   display: flex;
   align-items: center;
   gap: 0.5rem;
 }
 
 .device-distance-row {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  color: var(--text-color-secondary);
   font-size: 0.85rem;
+  color: var(--text-color-secondary);
 }
 
 .last-seen {
   font-size: 0.75rem;
   color: #666;
-  white-space: nowrap;
 }
 
 /* =========================
@@ -154,16 +200,10 @@ html, body, #root {
   margin-top: 1rem;
 }
 
-.tech-details-grid {
-  display: flex;
-  flex-direction: column;
-}
-
 .tech-detail-row {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  padding: 0.65rem 0;
+  padding: 0.6rem 0;
   border-bottom: 1px solid var(--surface-border);
   font-size: 0.85rem;
 }
@@ -172,19 +212,8 @@ html, body, #root {
   border-bottom: none;
 }
 
-.tech-detail-label {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  color: var(--text-color-secondary);
-}
-
-.tech-detail-value {
-  font-weight: 500;
-}
-
 /* =========================
-   SIGNAL STRENGTH PANEL
+   SIGNAL STRENGTH PANEL (FIXED)
    ========================= */
 .signal-panel {
   margin-top: 1rem;
@@ -197,22 +226,23 @@ html, body, #root {
   margin-bottom: 0.35rem;
 }
 
-.signal-bar {
+/* Basis ProgressBar */
+.signal-bar.p-progressbar {
   height: 8px;
   border-radius: 4px;
 }
 
-/* Farben */
+/* Farben – korrekt an PrimeReact gebunden */
 .signal-bar.success .p-progressbar-value {
-  background: #2ecc71;
+  background-color: #2ecc71 !important;
 }
 
 .signal-bar.warning .p-progressbar-value {
-  background: #f1c40f;
+  background-color: #f1c40f !important;
 }
 
 .signal-bar.danger .p-progressbar-value {
-  background: #e74c3c;
+  background-color: #e74c3c !important;
 }
 
 /* =========================
@@ -220,7 +250,7 @@ html, body, #root {
    ========================= */
 .device-dialog-chart {
   width: 100%;
-  height: 150px;
+  height: 180px;
   position: relative;
 }
 
@@ -230,55 +260,10 @@ html, body, #root {
 }
 
 /* =========================
-   CHAT DRAWER (OPTIONAL)
-   ========================= */
-.chat-drawer {
-  position: fixed;
-  top: 0;
-  right: 0;
-  height: 100vh;
-  width: 380px;
-  max-width: 90vw;
-  background: var(--surface-card);
-  border-right: 1px solid var(--surface-border);
-  transform: translateX(100%);
-  transition: transform 0.25s ease;
-  z-index: 2000;
-}
-
-.chat-drawer.open {
-  transform: translateX(0);
-}
-
-.chat-handle {
-  position: fixed;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 28px;
-  height: 80px;
-  background: var(--surface-card);
-  border: 1px solid var(--surface-border);
-  border-left: none;
-  border-radius: 8px 0 0 8px;
-  cursor: pointer;
-  z-index: 2001;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.chat-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.25);
-  z-index: 1999;
-}
-
-/* =========================
    MOBILE
    ========================= */
 @media (max-width: 900px) {
+
   .app-content {
     flex-direction: column;
     overflow-y: auto;
@@ -296,38 +281,47 @@ html, body, #root {
     flex: none;
   }
 
-  .device-dialog-chart {
-    height: 220px;
+  .chat-dock {
+    width: 100%;
+    max-width: 100%;
+    height: 320px;
+    border-left: none;
+    border-top: 1px solid var(--surface-border);
   }
 }
 
-/* Tabelle darf horizontal scrollen */
-.node-table .p-datatable-wrapper {
-  overflow-x: auto;
+.chat-undock-btn {
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 1.5rem;
+  padding: 0 4px;
+  color: var(--text-color-secondary);
 }
 
-/* Zahlen ruhiger */
-.node-table td {
-  white-space: nowrap;
+.chat-undock-btn:hover {
+  color: var(--text-color);
 }
 
-/* Ausgewählte Zeile klarer */
-.node-table .p-highlight {
-  background: rgba(33, 150, 243, 0.12) !important;
+.header-content {
+  display: flex;
+  align-items: center;
+  width: 100%;
 }
 
-/* RSSI Farben */
-.rssi-ok {
-  color: #2e7d32;
-  font-weight: 500;
+/* Titel bleibt links */
+.header-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
 }
 
-.rssi-mid {
-  color: #f57c00;
-  font-weight: 500;
-}
+/* 🔥 DAS ist der Schlüssel */
+.header-actions {
+  margin-left: auto;          /* schiebt nach ganz rechts */
+  display: flex;
+  align-items: center;
+  gap: 10px;
 
-.rssi-warn {
-  color: #c62828;
-  font-weight: 500;
 }
