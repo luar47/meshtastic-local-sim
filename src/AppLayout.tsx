@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 import { DeviceNavbar } from "./components/DeviceNavbar";
 import { MapPanel } from "./components/MapPanel";
@@ -6,42 +6,41 @@ import { NodeTable } from "./components/NodeTable";
 import { AppFooter } from "./components/AppFooter";
 import { ChatLayout } from "./chat/ChatLayout";
 import { DeviceDetailsPanel } from "./components/DeviceDetailsPanel";
+
 import { useNodeStore } from "./store/useNodeStore";
 
-/* Mobile View Modi */
-type MobileView = "default" | "chat" | "details";
-
 export function AppLayout() {
-    // Global ausgewähltes Device
+    // 📌 global ausgewähltes Gerät
     const selectedNode = useNodeStore((s) => s.selectedNode);
+    const setSelectedNode = useNodeStore((s) => s.setSelectedNode);
 
-    // Chat-Zustand (Desktop)
+    // 💬 Chat-Zustand (rechts andockbar)
     const [chatMode, setChatMode] = useState<"closed" | "docked">("closed");
 
-    // Mobile UI Fokus
-    const [mobileView, setMobileView] = useState<MobileView>("default");
-
-    /* Wenn auf Mobile ein Node ausgewählt wird → Details öffnen */
-    useEffect(() => {
-        if (selectedNode && window.innerWidth < 900) {
-            setMobileView("details");
-        }
-    }, [selectedNode]);
+    // 📱 einfache Mobile-Erkennung (reicht hier)
+    const isMobile = window.innerWidth < 900;
 
     return (
-        <div className={`app-root mobile-${mobileView}`}>
-            {/* 🔝 Navbar */}
+        <div className="app-root">
+            {/* 🔝 TOP NAVBAR */}
             <DeviceNavbar />
 
-            {/* 🧱 Hauptinhalt */}
-            <div className="app-content">
-
-                {/* 🔍 DEVICE DETAILS (Desktop links / Mobile fullscreen) */}
+            {/* 🧱 HAUPTINHALT */}
+            <div
+                className={`app-content ${
+                    chatMode === "docked" ? "chat-docked" : ""
+                }`}
+            >
+                {/* 🔍 DEVICE DETAILS PANEL (links / mobile fullscreen) */}
                 <aside className="device-panel">
                     {selectedNode ? (
                         <DeviceDetailsPanel
                             device={selectedNode}
-                            onCloseMobile={() => setMobileView("default")}
+                            onCloseMobile={
+                                isMobile
+                                    ? () => setSelectedNode(null)
+                                    : undefined
+                            }
                         />
                     ) : (
                         <div className="device-panel-empty">
@@ -55,37 +54,30 @@ export function AppLayout() {
                     <div className="map-pane">
                         <MapPanel />
                     </div>
+
                     <div className="list-pane">
                         <NodeTable />
                     </div>
                 </main>
 
-                {/* 💬 CHAT (Desktop gedockt / Mobile fullscreen) */}
+                {/* 💬 GEDOCKTER CHAT (rechts) */}
                 {chatMode === "docked" && (
                     <aside className="chat-dock">
                         <ChatLayout
                             onUndock={() => setChatMode("closed")}
-                            onOpenMobile={() => setMobileView("chat")}
-                            onCloseMobile={() => setMobileView("default")}
                         />
                     </aside>
                 )}
             </div>
 
-            {/* 🔻 Footer */}
+            {/* 🔻 FOOTER */}
             <AppFooter />
 
-            {/* 💬 CHAT HANDLE (Desktop + Mobile Default) */}
-            {chatMode === "closed" && mobileView === "default" && (
+            {/* 💬 CHAT HANDLE (nur wenn Chat geschlossen) */}
+            {chatMode === "closed" && (
                 <div
                     className="chat-handle"
-                    onClick={() => {
-                        if (window.innerWidth < 900) {
-                            setMobileView("chat");
-                        } else {
-                            setChatMode("docked");
-                        }
-                    }}
+                    onClick={() => setChatMode("docked")}
                     title="Chat öffnen"
                 >
                     💬

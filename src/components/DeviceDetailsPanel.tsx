@@ -57,7 +57,7 @@ export function DeviceDetailsPanel({ device, onCloseMobile }: Props) {
             {/* 📦 BASISDATEN */}
             <Card
                 className="device-card"
-                title={`${device.longname} [${device.shortname}]`}
+                title={`${device.longname}`}
             >
                 <div className="device-header">
 

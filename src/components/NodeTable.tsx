@@ -21,10 +21,9 @@ export function NodeTable() {
             scrollHeight="flex"
             className="node-table"
             selectionMode="single"
-            selection={selectedNode}
+            selection={selectedNode ?? null}
             onSelectionChange={(e) => {
-                const node = e.value as NodeInfo | null;
-                if (node) setSelectedNode(node);
+                setSelectedNode(e.value as NodeInfo | null);
             }}
             emptyMessage="Keine Geräte gefunden"
             header={`Nodes (${nodes.length})`}
@@ -37,6 +36,7 @@ export function NodeTable() {
             <Column
                 field="shortname"
                 header="Node"
+                sortable
                 style={{ width: "90px" }}
             />
 
@@ -44,6 +44,7 @@ export function NodeTable() {
             <Column
                 field="longname"
                 header="Name"
+                sortable
                 style={{ minWidth: "180px" }}
             />
 
@@ -58,12 +59,14 @@ export function NodeTable() {
             <Column
                 field="maps_marker.altitude"
                 header="Höhe"
+                sortable
                 style={{ width: "90px", textAlign: "right" }}
             />
 
             {/* RSSI */}
             <Column
                 header="RSSI"
+                sortable
                 body={(n: NodeInfo) => {
                     const cls =
                         n.rssi > -70
@@ -81,6 +84,7 @@ export function NodeTable() {
             <Column
                 field="snr"
                 header="SNR"
+                sortable
                 style={{ width: "70px", textAlign: "right" }}
             />
 
@@ -88,12 +92,14 @@ export function NodeTable() {
             <Column
                 field="hops_away"
                 header="Hops"
+                sortable
                 style={{ width: "70px", textAlign: "center" }}
             />
 
             {/* Aktivität */}
             <Column
                 header="Aktivität"
+                sortable
                 body={(n: NodeInfo) => <LastSeenCell ts={n.last_seen} />}
                 style={{ width: "130px" }}
             />
