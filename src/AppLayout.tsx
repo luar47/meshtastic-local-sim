@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { DeviceNavbar } from "./components/DeviceNavbar";
 import { MapPanel } from "./components/MapPanel";
@@ -9,80 +9,101 @@ import { DeviceDetailsPanel } from "./components/DeviceDetailsPanel";
 
 import { useNodeStore } from "./store/useNodeStore";
 
+type MobileView = "main" | "device" | "chat";
+
 export function AppLayout() {
-    // 📌 global ausgewähltes Gerät
+    // 🌍 global ausgewähltes Gerät
     const selectedNode = useNodeStore((s) => s.selectedNode);
     const setSelectedNode = useNodeStore((s) => s.setSelectedNode);
 
-    // 💬 Chat-Zustand (rechts andockbar)
-    const [chatMode, setChatMode] = useState<"closed" | "docked">("closed");
+    // 📱 Mobile-View-State
+    const [mobileView, setMobileView] = useState<MobileView>("main");
 
-    // 📱 einfache Mobile-Erkennung (reicht hier)
-    const isMobile = window.innerWidth < 900;
+    // 📱 Responsive Detection (reaktiv!)
+    const [isMobile, setIsMobile] = useState(window.innerWidth < 900);
+
+    useEffect(() => {
+        const onResize = () => setIsMobile(window.innerWidth < 900);
+        window.addEventListener("resize", onResize);
+        return () => window.removeEventListener("resize", onResize);
+    }, []);
+
+    // 👉 Wenn Gerät gewählt wird → auf Mobile in Device-View wechseln
+    useEffect(() => {
+        if (isMobile && selectedNode) {
+            setMobileView("device");
+        }
+    }, [selectedNode, isMobile]);
 
     return (
         <div className="app-root">
-            {/* 🔝 TOP NAVBAR */}
             <DeviceNavbar />
 
-            {/* 🧱 HAUPTINHALT */}
-            <div
-                className={`app-content ${
-                    chatMode === "docked" ? "chat-docked" : ""
-                }`}
-            >
-                {/* 🔍 DEVICE DETAILS PANEL (links / mobile fullscreen) */}
-                <aside className="device-panel">
-                    {selectedNode ? (
+            <div className="app-content">
+
+                {/* =====================
+                   MOBILE OVERLAYS
+                   ===================== */}
+                {isMobile && mobileView === "device" && selectedNode && (
+                    <aside className="device-panel mobile-overlay">
                         <DeviceDetailsPanel
                             device={selectedNode}
-                            onCloseMobile={
-                                isMobile
-                                    ? () => setSelectedNode(null)
-                                    : undefined
-                            }
-                        />
-                    ) : (
-                        <div className="device-panel-empty">
-                            <i className="pi pi-info-circle"/>
-                            <h4>Kein Gerät ausgewählt</h4>
-                            <p>
-                                Wähle ein Gerät aus der Liste oder auf der Karte,
-                                um Details anzuzeigen.
-                            </p>
-                        </div>
-                    )}
-                </aside>
-
-                {/* 🗺 MAP + 📋 LISTE */}
-                <main className="main-panel">
-                    <div className="map-pane">
-                        <MapPanel/>
-                    </div>
-
-                    <div className="list-pane">
-                        <NodeTable />
-                    </div>
-                </main>
-
-                {/* 💬 GEDOCKTER CHAT (rechts) */}
-                {chatMode === "docked" && (
-                    <aside className="chat-dock">
-                        <ChatLayout
-                            onUndock={() => setChatMode("closed")}
+                            onCloseMobile={() => {
+                                setSelectedNode(null);
+                                setMobileView("main");
+                            }}
                         />
                     </aside>
                 )}
+
+                {isMobile && mobileView === "chat" && (
+                    <aside className="chat-dock mobile-overlay">
+                        <ChatLayout onUndock={() => setMobileView("main")} />
+                    </aside>
+                )}
+
+                {/* =====================
+                   DESKTOP DEVICE PANEL
+                   ===================== */}
+                {!isMobile && (
+                    <aside className="device-panel">
+                        {selectedNode ? (
+                            <DeviceDetailsPanel device={selectedNode} />
+                        ) : (
+                            <div className="device-panel-empty">
+                                <i className="pi pi-info-circle" />
+                                <h4>Kein Gerät ausgewählt</h4>
+                                <p>Wähle ein Gerät aus der Liste oder Karte.</p>
+                            </div>
+                        )}
+                    </aside>
+                )}
+
+                {/* =====================
+                   MAIN (MAP + LIST)
+                   ===================== */}
+                {(!isMobile || mobileView === "main") && (
+                    <main className="main-panel">
+                        <div className="map-pane">
+                            <MapPanel />
+                        </div>
+
+                        <div className="list-pane">
+                            <NodeTable />
+                        </div>
+                    </main>
+                )}
             </div>
 
-            {/* 🔻 FOOTER */}
             <AppFooter />
 
-            {/* 💬 CHAT HANDLE (nur wenn Chat geschlossen) */}
-            {chatMode === "closed" && (
+            {/* =====================
+               MOBILE CHAT HANDLE
+               ===================== */}
+            { mobileView === "main" && (
                 <div
                     className="chat-handle"
-                    onClick={() => setChatMode("docked")}
+                    onClick={() => setMobileView("chat")}
                     title="Chat öffnen"
                 >
                     💬

@@ -98,6 +98,13 @@ h3 {
     padding: 1.5rem;
 }
 
+.device-panel-content {
+    padding: 1rem;              /* Abstand zum Panel-Rand */
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;                  /* 🔥 Abstand zwischen Cards */
+}
+
 .device-panel-empty i {
     font-size: 2rem;
     opacity: 0.6;
@@ -174,8 +181,11 @@ h3 {
    DEVICE DETAILS UI
    ========================= */
 .device-card .p-card-body {
-    padding: 1.25rem;
+    border-radius: 12px;        /* moderner Look */
+    padding: 1.5rem 1.5rem;
 }
+
+
 
 .device-card .p-card-content {
     padding: 0;
@@ -241,6 +251,8 @@ h3 {
     height: 8px;
     border-radius: 4px;
     background: var(--border-subtle);
+    margin: 0.5rem;
+
 }
 
 .signal-bar.success .p-progressbar-value {
@@ -328,25 +340,31 @@ h3 {
     top: 30%;
     transform: translateY(-50%);
 
-    width: 28px;
-    height: 80px;
+    width: 32px;
+    height: 84px;
 
-    background: var(--panel-bg);
-    border: 2px solid var(--border-subtle);
+    background: #ffffff;
+    border: 2px solid #e3e7ee;
     border-right: none;
-    border-color: var(--text-secondary);
+
     border-radius: 8px 0 0 8px;
+    border-color: var(--text-primary);;
 
     cursor: pointer;
-    z-index: 2001;
+
+    z-index: 9999;          /* 🔥 höher als alles */
+    pointer-events: auto;  /* 🔥 wichtig */
 
     display: flex;
     align-items: center;
     justify-content: center;
+
+    box-shadow: -4px 0 12px rgba(0,0,0,0.08);
 }
+
 @media (max-width: 900px) {
     .chat-handle {
-        display: none;   /* 🔥 wichtig */
+        display: flex;
     }
 }
 
@@ -411,4 +429,19 @@ h3 {
 
 .p-menubar .p-menubar-root-list {
     z-index: 1000;
+}
+
+@media (max-width: 900px) {
+    .app-content {
+        overflow: hidden;   /* 🔥 WICHTIG */
+    }
+}
+
+@media (max-width: 900px) {
+    .main-panel {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        min-height: 0;      /* 🔥 extrem wichtig für Flex-Scroll */
+    }
 }
