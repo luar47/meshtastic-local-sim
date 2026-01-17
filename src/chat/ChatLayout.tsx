@@ -16,6 +16,8 @@ import {connectChatSse} from "./chatSse";
 
 type Props = {
     onUndock?: () => void;
+    onOpenMobile?: () => void;
+    onCloseMobile?: () => void;
 };
 
 export function ChatLayout({onUndock}: Props) {

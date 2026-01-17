@@ -14,10 +14,11 @@ import { NodeMetricsConnectionChart } from "./deviceDetailsOverlay/NodeMetricsCo
 import { NodeMetricsEnergyChart } from "./deviceDetailsOverlay/NodeMetricsEnergyChart";
 
 type Props = {
-    device: NodeInfo | null;
+    device: NodeInfo;
+    onCloseMobile?: () => void;
 };
 
-export function DeviceDetailsPanel({ device }: Props) {
+export function DeviceDetailsPanel({ device, onCloseMobile }: Props) {
     const [metrics, setMetrics] = useState<NodeMetricsResponse | null>(null);
     const [loadingMetrics, setLoadingMetrics] = useState(false);
 
@@ -30,22 +31,34 @@ export function DeviceDetailsPanel({ device }: Props) {
             .then(setMetrics)
             .catch(console.error)
             .finally(() => setLoadingMetrics(false));
-    }, [device?.node_id]);
-
-    if (!device) {
-        return (
-            <div className="device-placeholder">
-                Gerät auswählen
-            </div>
-        );
-    }
+    }, [device.node_id]);
 
     const online = device.rssi > -80;
 
     return (
         <div className="device-panel-content">
 
-            <Card className="device-card" title={device.longname + " [" + device.shortname + "]"}>
+            {/* 📱 MOBILE HEADER */}
+            {onCloseMobile && (
+                <div className="device-mobile-header">
+                    <span className="device-mobile-title">
+                        {device.shortname}
+                    </span>
+                    <button
+                        className="device-mobile-close"
+                        onClick={onCloseMobile}
+                        aria-label="Schließen"
+                    >
+                        ✕
+                    </button>
+                </div>
+            )}
+
+            {/* 📦 BASISDATEN */}
+            <Card
+                className="device-card"
+                title={`${device.longname} [${device.shortname}]`}
+            >
                 <div className="device-header">
 
                     <div className="device-status-row">
@@ -71,8 +84,10 @@ export function DeviceDetailsPanel({ device }: Props) {
                 />
             </Card>
 
+            {/* 🧩 TECHNISCHE DETAILS */}
             <DeviceTechnicalDetailsPanel node={device} />
 
+            {/* 📈 METRIKEN */}
             <Card className="device-card" title="Batterie und Verbindung">
                 <h3>Signalverlauf</h3>
                 {loadingMetrics && <div>Lade Messdaten…</div>}

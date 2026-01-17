@@ -325,3 +325,41 @@ html, body, #root {
   gap: 10px;
 
 }
+
+/* =========================
+   MOBILE DEVICE DETAILS HEADER
+   ========================= */
+.device-mobile-header {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .device-mobile-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--surface-border);
+    background: var(--surface-card);
+    position: sticky;
+    top: 0;
+    z-index: 5;
+  }
+
+  .device-mobile-title {
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+
+  .device-mobile-close {
+    border: none;
+    background: none;
+    font-size: 1.1rem;
+    cursor: pointer;
+    color: var(--text-color-secondary);
+  }
+
+  .device-mobile-close:hover {
+    color: var(--text-color);
+  }
+}

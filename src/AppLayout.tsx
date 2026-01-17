@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { DeviceNavbar } from "./components/DeviceNavbar";
 import { MapPanel } from "./components/MapPanel";
@@ -8,25 +8,41 @@ import { ChatLayout } from "./chat/ChatLayout";
 import { DeviceDetailsPanel } from "./components/DeviceDetailsPanel";
 import { useNodeStore } from "./store/useNodeStore";
 
+/* Mobile View Modi */
+type MobileView = "default" | "chat" | "details";
+
 export function AppLayout() {
-    // 📌 globaler Gerätezustand
+    // Global ausgewähltes Device
     const selectedNode = useNodeStore((s) => s.selectedNode);
 
-    // 💬 Chat-Zustand
+    // Chat-Zustand (Desktop)
     const [chatMode, setChatMode] = useState<"closed" | "docked">("closed");
 
+    // Mobile UI Fokus
+    const [mobileView, setMobileView] = useState<MobileView>("default");
+
+    /* Wenn auf Mobile ein Node ausgewählt wird → Details öffnen */
+    useEffect(() => {
+        if (selectedNode && window.innerWidth < 900) {
+            setMobileView("details");
+        }
+    }, [selectedNode]);
+
     return (
-        <div className="app-root">
-            {/* 🔝 Top Navbar */}
+        <div className={`app-root mobile-${mobileView}`}>
+            {/* 🔝 Navbar */}
             <DeviceNavbar />
 
             {/* 🧱 Hauptinhalt */}
-            <div className={`app-content ${chatMode === "docked" ? "chat-docked" : ""}`}>
+            <div className="app-content">
 
-                {/* 🔍 DEVICE DETAILS (links) */}
+                {/* 🔍 DEVICE DETAILS (Desktop links / Mobile fullscreen) */}
                 <aside className="device-panel">
                     {selectedNode ? (
-                        <DeviceDetailsPanel device={selectedNode} />
+                        <DeviceDetailsPanel
+                            device={selectedNode}
+                            onCloseMobile={() => setMobileView("default")}
+                        />
                     ) : (
                         <div className="device-panel-empty">
                             Gerät auswählen
@@ -44,10 +60,14 @@ export function AppLayout() {
                     </div>
                 </main>
 
-                {/* 💬 GEDOCKTER CHAT (rechts) */}
+                {/* 💬 CHAT (Desktop gedockt / Mobile fullscreen) */}
                 {chatMode === "docked" && (
                     <aside className="chat-dock">
-                        <ChatLayout onUndock={() => setChatMode("closed")} />
+                        <ChatLayout
+                            onUndock={() => setChatMode("closed")}
+                            onOpenMobile={() => setMobileView("chat")}
+                            onCloseMobile={() => setMobileView("default")}
+                        />
                     </aside>
                 )}
             </div>
@@ -55,11 +75,17 @@ export function AppLayout() {
             {/* 🔻 Footer */}
             <AppFooter />
 
-            {/* 💬 CHAT HANDLE (nur wenn geschlossen) */}
-            {chatMode === "closed" && (
+            {/* 💬 CHAT HANDLE (Desktop + Mobile Default) */}
+            {chatMode === "closed" && mobileView === "default" && (
                 <div
                     className="chat-handle"
-                    onClick={() => setChatMode("docked")}
+                    onClick={() => {
+                        if (window.innerWidth < 900) {
+                            setMobileView("chat");
+                        } else {
+                            setChatMode("docked");
+                        }
+                    }}
                     title="Chat öffnen"
                 >
                     💬
