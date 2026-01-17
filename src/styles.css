@@ -71,7 +71,8 @@ h3 {
 .app-content {
     flex: 1;
     display: flex;
-    overflow: hidden;
+    overflow-x: hidden;   /* nur horizontal sperren */
+    overflow-y: hidden;
 }
 
 /* =========================
@@ -99,7 +100,7 @@ h3 {
 }
 
 .device-panel-content {
-    padding: 1rem;              /* Abstand zum Panel-Rand */
+    padding: 1.5rem;              /* Abstand zum Panel-Rand */
     display: flex;
     flex-direction: column;
     gap: 1rem;                  /* 🔥 Abstand zwischen Cards */
@@ -286,11 +287,11 @@ h3 {
    ========================= */
 .chat-dock {
     width: 420px;
-    min-width: 320px;
+    min-width: 420px;
+    flex-shrink: 0;           /* 🔥 extrem wichtig */
     background: var(--panel-bg);
     border-left: 1px solid var(--border-subtle);
     display: flex;
-    flex-direction: column;
     overflow: hidden;
 }
 

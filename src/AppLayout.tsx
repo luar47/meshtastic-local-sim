@@ -16,10 +16,13 @@ export function AppLayout() {
     const selectedNode = useNodeStore((s) => s.selectedNode);
     const setSelectedNode = useNodeStore((s) => s.setSelectedNode);
 
-    // 📱 Mobile-View-State
+    // 📱 Mobile Navigation
     const [mobileView, setMobileView] = useState<MobileView>("main");
 
-    // 📱 Responsive Detection (reaktiv!)
+    // 💬 Desktop Chat
+    const [desktopChatOpen, setDesktopChatOpen] = useState(false);
+
+    // 📐 Responsive Detection (reaktiv)
     const [isMobile, setIsMobile] = useState(window.innerWidth < 900);
 
     useEffect(() => {
@@ -28,7 +31,7 @@ export function AppLayout() {
         return () => window.removeEventListener("resize", onResize);
     }, []);
 
-    // 👉 Wenn Gerät gewählt wird → auf Mobile in Device-View wechseln
+    // 👉 Mobile: Gerät ausgewählt → Device-View
     useEffect(() => {
         if (isMobile && selectedNode) {
             setMobileView("device");
@@ -37,13 +40,16 @@ export function AppLayout() {
 
     return (
         <div className="app-root">
+            {/* 🔝 NAVBAR */}
             <DeviceNavbar />
 
+            {/* 🧱 CONTENT */}
             <div className="app-content">
 
                 {/* =====================
-                   MOBILE OVERLAYS
+                   📱 MOBILE OVERLAYS
                    ===================== */}
+
                 {isMobile && mobileView === "device" && selectedNode && (
                     <aside className="device-panel mobile-overlay">
                         <DeviceDetailsPanel
@@ -63,7 +69,7 @@ export function AppLayout() {
                 )}
 
                 {/* =====================
-                   DESKTOP DEVICE PANEL
+                   🖥 DESKTOP DEVICE PANEL
                    ===================== */}
                 {!isMobile && (
                     <aside className="device-panel">
@@ -73,34 +79,58 @@ export function AppLayout() {
                             <div className="device-panel-empty">
                                 <i className="pi pi-info-circle" />
                                 <h4>Kein Gerät ausgewählt</h4>
-                                <p>Wähle ein Gerät aus der Liste oder Karte.</p>
+                                <p>
+                                    Wähle ein Gerät aus der Liste oder auf der
+                                    Karte, um Details anzuzeigen.
+                                </p>
                             </div>
                         )}
                     </aside>
                 )}
 
                 {/* =====================
-                   MAIN (MAP + LIST)
+                   🗺 MAP + 📋 LISTE
                    ===================== */}
                 {(!isMobile || mobileView === "main") && (
                     <main className="main-panel">
                         <div className="map-pane">
                             <MapPanel />
                         </div>
-
                         <div className="list-pane">
                             <NodeTable />
                         </div>
                     </main>
                 )}
+
+                {/* =====================
+                   💬 DESKTOP CHAT (RECHTS)
+                   ===================== */}
+                {!isMobile && desktopChatOpen && (
+                    <aside className="chat-dock">
+                        <ChatLayout
+                            onUndock={() => setDesktopChatOpen(false)}
+                        />
+                    </aside>
+                )}
             </div>
 
+            {/* 🔻 FOOTER */}
             <AppFooter />
 
             {/* =====================
-               MOBILE CHAT HANDLE
+               💬 CHAT HANDLE (IMMER RECHTS)
                ===================== */}
-            { mobileView === "main" && (
+            {!isMobile && !desktopChatOpen && (
+                <div
+                    className="chat-handle"
+                    onClick={() => setDesktopChatOpen(true)}
+                    title="Chat öffnen"
+                >
+                    💬
+                </div>
+            )}
+
+            {isMobile && mobileView === "main" && (
                 <div
                     className="chat-handle"
                     onClick={() => setMobileView("chat")}
