@@ -3,16 +3,22 @@ import type { NodeInfo } from "../types/nodes";
 
 type NodeState = {
     nodes: NodeInfo[];
-    selectedNode: NodeInfo | null;
+    loading: boolean;
 
     setNodes: (nodes: NodeInfo[]) => void;
-    setSelectedNode: (node: NodeInfo | null) => void;
+    setLoading: (v: boolean) => void;
+
+    selectedNode: NodeInfo | null;
+    setSelectedNode: (n: NodeInfo | null) => void;
 };
 
 export const useNodeStore = create<NodeState>((set) => ({
     nodes: [],
-    selectedNode: null,
+    loading: false,
 
     setNodes: (nodes) => set({ nodes }),
-    setSelectedNode: (node) => set({ selectedNode: node }),
+    setLoading: (loading) => set({ loading }),
+
+    selectedNode: null,
+    setSelectedNode: (selectedNode) => set({ selectedNode }),
 }));

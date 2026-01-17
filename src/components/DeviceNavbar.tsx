@@ -16,7 +16,7 @@ export function DeviceNavbar() {
 
     const start = (
         <strong style={{ paddingLeft: 8 }}>
-            Meshtastic
+            SaarMosel.social Mesh
         </strong>
     );
 

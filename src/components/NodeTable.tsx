@@ -9,10 +9,13 @@ export function NodeTable() {
     const nodes = useNodeStore((s) => s.nodes);
     const selectedNode = useNodeStore((s) => s.selectedNode);
     const setSelectedNode = useNodeStore((s) => s.setSelectedNode);
+    const loading = useNodeStore(s => s.loading);
+
 
     return (
         <DataTable
             value={nodes}
+            loading={loading}
             dataKey="node_id"
             size="small"
             stripedRows

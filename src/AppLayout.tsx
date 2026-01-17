@@ -44,7 +44,12 @@ export function AppLayout() {
                         />
                     ) : (
                         <div className="device-panel-empty">
-                            Gerät auswählen
+                            <i className="pi pi-info-circle"/>
+                            <h4>Kein Gerät ausgewählt</h4>
+                            <p>
+                                Wähle ein Gerät aus der Liste oder auf der Karte,
+                                um Details anzuzeigen.
+                            </p>
                         </div>
                     )}
                 </aside>
@@ -52,7 +57,7 @@ export function AppLayout() {
                 {/* 🗺 MAP + 📋 LISTE */}
                 <main className="main-panel">
                     <div className="map-pane">
-                        <MapPanel />
+                        <MapPanel/>
                     </div>
 
                     <div className="list-pane">

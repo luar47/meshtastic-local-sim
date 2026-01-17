@@ -7,6 +7,7 @@ import { DeviceTechnicalDetailsPanel } from "./deviceDetailsOverlay/DeviceTechni
 import { SignalStrengthPanel } from "./deviceDetailsOverlay/SignalStrengthPanel";
 import { DistanceCell } from "./nodetable/lastDistanceToUser";
 import { LastSeenCell } from "./nodetable/lastSeenCell";
+import { Skeleton } from "primereact/skeleton";
 
 import { fetchNodeMetrics } from "../api/nodeMetrics";
 import type { NodeMetricsResponse } from "../api/nodeMetrics";
@@ -36,7 +37,7 @@ export function DeviceDetailsPanel({ device, onCloseMobile }: Props) {
     const online = device.rssi > -80;
 
     return (
-        <div className="device-panel-content">
+        <div className="device-panel-content device-fade">
 
             {/* 📱 MOBILE HEADER */}
             {onCloseMobile && (
@@ -90,7 +91,13 @@ export function DeviceDetailsPanel({ device, onCloseMobile }: Props) {
             {/* 📈 METRIKEN */}
             <Card className="device-card" title="Batterie und Verbindung">
                 <h3>Signalverlauf</h3>
-                {loadingMetrics && <div>Lade Messdaten…</div>}
+                {loadingMetrics && (
+                    <>
+                        <Skeleton height="1.5rem" width="60%" className="mb-2" />
+                        <Skeleton height="150px" className="mb-3" />
+                        <Skeleton height="150px" />
+                    </>
+                )}
 
                 <div className="device-dialog-chart">
                     {metrics && <NodeMetricsConnectionChart metrics={metrics} />}
