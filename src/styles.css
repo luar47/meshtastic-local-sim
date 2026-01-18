@@ -72,7 +72,7 @@ h3 {
 .app-content {
     flex: 1;
     display: flex;
-    overflow-x: hidden;   /* nur horizontal sperren */
+    overflow-x: hidden; /* nur horizontal sperren */
     overflow-y: hidden;
 }
 
@@ -80,12 +80,13 @@ h3 {
    DEVICE DETAILS PANEL
    ========================= */
 .device-panel {
-    width: 600px;
-    min-width: 320px;
     background: var(--panel-bg);
     border-right: 1px solid var(--border-subtle);
     overflow-y: auto;
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
+    width: 38%;
+    max-width: 430px;
+    min-width: 320px;
 }
 
 .device-panel-empty {
@@ -101,10 +102,10 @@ h3 {
 }
 
 .device-panel-content {
-    padding: 1.5rem;              /* Abstand zum Panel-Rand */
+    padding: 1.5rem; /* Abstand zum Panel-Rand */
     display: flex;
     flex-direction: column;
-    gap: 1rem;                  /* 🔥 Abstand zwischen Cards */
+    gap: 1rem; /* 🔥 Abstand zwischen Cards */
 }
 
 .device-panel-empty i {
@@ -120,6 +121,9 @@ h3 {
     display: flex;
     flex-direction: column;
     background: var(--panel-bg);
+    min-width: 0; /* 🔥 ABSOLUT KRITISCH */
+
+    overflow: hidden;
 }
 
 .map-pane {
@@ -175,18 +179,28 @@ h3 {
 }
 
 /* RSSI */
-.rssi-ok { color: #2e7d32; font-weight: 500; }
-.rssi-mid { color: #f57c00; font-weight: 500; }
-.rssi-warn { color: #c62828; font-weight: 500; }
+.rssi-ok {
+    color: #2e7d32;
+    font-weight: 500;
+}
+
+.rssi-mid {
+    color: #f57c00;
+    font-weight: 500;
+}
+
+.rssi-warn {
+    color: #c62828;
+    font-weight: 500;
+}
 
 /* =========================
    DEVICE DETAILS UI
    ========================= */
 .device-card .p-card-body {
-    border-radius: 12px;        /* moderner Look */
+    border-radius: 12px; /* moderner Look */
     padding: 1.5rem 1.5rem;
 }
-
 
 
 .device-card .p-card-content {
@@ -289,7 +303,6 @@ h3 {
 .chat-dock {
     width: 420px;
     min-width: 420px;
-    flex-shrink: 0;           /* 🔥 extrem wichtig */
     background: var(--panel-bg);
     border-left: 1px solid var(--border-subtle);
     display: flex;
@@ -317,7 +330,7 @@ h3 {
     border-radius: 12px !important;
     font-size: 0.85rem;
     color: var(--text-primary);
-    box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
 }
 
 .cs-message--outgoing .cs-message__content {
@@ -354,14 +367,14 @@ h3 {
 
     cursor: pointer;
 
-    z-index: 9999;          /* 🔥 höher als alles */
-    pointer-events: auto;  /* 🔥 wichtig */
+    z-index: 9999; /* 🔥 höher als alles */
+    pointer-events: auto; /* 🔥 wichtig */
 
     display: flex;
     align-items: center;
     justify-content: center;
 
-    box-shadow: -4px 0 12px rgba(0,0,0,0.08);
+    box-shadow: -4px 0 12px rgba(0, 0, 0, 0.08);
 }
 
 @media (max-width: 900px) {
@@ -382,7 +395,10 @@ h3 {
     .device-panel {
         width: 100%;
         border-right: none;
+
         border-bottom: 1px solid var(--border-subtle);
+
+
     }
 
     .map-pane {
@@ -393,10 +409,12 @@ h3 {
     .chat-dock {
         position: fixed;
         inset: 0;
-        width: 100vw;
+        width: 100%;
         height: 100vh;
         z-index: 3000;
         border-left: none;
+        max-width: 420px;
+        min-width: 300px;
     }
 
     .device-mobile-header {
@@ -420,8 +438,14 @@ h3 {
 }
 
 @keyframes deviceFade {
-    from { opacity: 0; transform: translateY(4px); }
-    to   { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(4px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .cs-message-input--disabled .cs-message-input__content-editor-wrapper {
@@ -435,7 +459,7 @@ h3 {
 
 @media (max-width: 900px) {
     .app-content {
-        overflow: hidden;   /* 🔥 WICHTIG */
+        overflow: hidden; /* 🔥 WICHTIG */
     }
 }
 
@@ -444,6 +468,6 @@ h3 {
         flex: 1;
         display: flex;
         flex-direction: column;
-        min-height: 0;      /* 🔥 extrem wichtig für Flex-Scroll */
+        min-height: 0; /* 🔥 extrem wichtig für Flex-Scroll */
     }
 }
