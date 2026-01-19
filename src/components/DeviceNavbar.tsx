@@ -1,5 +1,7 @@
 import { Menubar } from "primereact/menubar";
 
+
+
 export function DeviceNavbar() {
     const items = [
         {
@@ -18,6 +20,8 @@ export function DeviceNavbar() {
             Meshtastic SaarMosel.social
         </strong>
     );
+
+
 
 
 

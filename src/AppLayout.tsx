@@ -6,12 +6,13 @@ import { NodeTable } from "./components/NodeTable";
 import { AppFooter } from "./components/AppFooter";
 import { ChatLayout } from "./chat/ChatLayout";
 import { DeviceDetailsPanel } from "./components/DeviceDetailsPanel";
-
+import {usePrimeTheme} from "./hooks/usePrimeTheme.ts";
 import { useNodeStore } from "./store/useNodeStore";
 
 type MobileView = "main" | "device" | "chat";
 
 export function AppLayout() {
+    usePrimeTheme();
     // 🌍 global ausgewähltes Gerät
     const selectedNode = useNodeStore((s) => s.selectedNode);
     const setSelectedNode = useNodeStore((s) => s.setSelectedNode);
@@ -40,8 +41,13 @@ export function AppLayout() {
 
     return (
         <div className="app-root">
+            <link
+                id="theme-link"
+                rel="stylesheet"
+                href="/themes/lara-dark-indigo/theme.css"
+            />
             {/* 🔝 NAVBAR */}
-            <DeviceNavbar />
+            <DeviceNavbar/>
 
             {/* 🧱 CONTENT */}
             <div className="app-content">
@@ -64,7 +70,7 @@ export function AppLayout() {
 
                 {isMobile && mobileView === "chat" && (
                     <aside className="chat-dock mobile-overlay">
-                        <ChatLayout onUndock={() => setMobileView("main")} />
+                        <ChatLayout onUndock={() => setMobileView("main")}/>
                     </aside>
                 )}
 
@@ -74,10 +80,10 @@ export function AppLayout() {
                 {!isMobile && (
                     <aside className="device-panel">
                         {selectedNode ? (
-                            <DeviceDetailsPanel device={selectedNode} />
+                            <DeviceDetailsPanel device={selectedNode}/>
                         ) : (
                             <div className="device-panel-empty">
-                                <i className="pi pi-info-circle" />
+                                <i className="pi pi-info-circle"/>
                                 <h4>Kein Gerät ausgewählt</h4>
                                 <p>
                                     Wähle ein Gerät aus der Liste oder auf der
@@ -94,10 +100,10 @@ export function AppLayout() {
                 {(!isMobile || mobileView === "main") && (
                     <main className="main-panel">
                         <div className="map-pane">
-                            <MapPanel />
+                            <MapPanel/>
                         </div>
                         <div className="list-pane">
-                            <NodeTable />
+                            <NodeTable/>
                         </div>
                     </main>
                 )}
@@ -115,7 +121,7 @@ export function AppLayout() {
             </div>
 
             {/* 🔻 FOOTER */}
-            <AppFooter />
+            <AppFooter/>
 
             {/* =====================
                💬 CHAT HANDLE (IMMER RECHTS)

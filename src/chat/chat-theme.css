@@ -1,0 +1,63 @@
+/* =========================
+   CHAT THEME – LIGHT
+   ========================= */
+.chat-shell {
+    --chat-bg: #ffffff;
+    --chat-header-bg: #f9fafb;
+    --chat-msg-in: #f3f4f6;
+    --chat-msg-out: #e0e7ff;
+    --chat-text: #1f2937;
+    --chat-border: #e5e7eb;
+}
+
+/* =========================
+   CHAT THEME – DARK
+   ========================= */
+html[data-theme="dark"] .chat-shell {
+    --chat-bg: #020617;
+    --chat-header-bg: #020617;
+    --chat-msg-in: #1e293b;
+    --chat-msg-out: #0f172a;
+    --chat-text: #e5e7eb;
+    --chat-border: #1e293b;
+}
+
+/* =========================
+   CHAT SCOPE OVERRIDES
+   ========================= */
+
+.chat-shell,
+.chat-shell .cs-main-container,
+.chat-shell .cs-chat-container {
+    background: var(--chat-bg) !important;
+    color: var(--chat-text) !important;
+}
+
+.chat-shell .cs-conversation-header {
+    background: var(--chat-header-bg) !important;
+    border-bottom: 1px solid var(--chat-border) !important;
+}
+
+.chat-shell .cs-message-list {
+    background: var(--chat-bg) !important;
+}
+
+.chat-shell .cs-message__content {
+    background: var(--chat-msg-in) !important;
+    color: var(--chat-text) !important;
+    border-radius: 12px;
+}
+
+.chat-shell .cs-message--outgoing .cs-message__content {
+    background: var(--chat-msg-out) !important;
+}
+
+.chat-shell .cs-message-input {
+    background: var(--chat-bg) !important;
+    border-top: 1px solid var(--chat-border) !important;
+}
+
+.chat-shell .cs-message-input__content-editor {
+    background: var(--chat-bg) !important;
+    color: var(--chat-text) !important;
+}

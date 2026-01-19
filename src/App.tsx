@@ -1,11 +1,12 @@
 import "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
 import "./styles.css";
 import {AppLayout} from "./AppLayout.tsx";
-import { useEffect } from "react";
-import { useNodeStore,  } from "./store/useNodeStore";
+import {useNodeStore,} from "./store/useNodeStore";
+import {useEffect} from "react";
+import {PrimeReactProvider} from "primereact/api";
+
 
 const API_BASE = import.meta.env.VITE_API_BASE_URL;
-
 
 
 export default function App() {
@@ -24,8 +25,11 @@ export default function App() {
 
 
     return (
+
         <div className="app-root">
+            <PrimeReactProvider>
                 <AppLayout/>
+            </PrimeReactProvider>
         </div>
     );
 }

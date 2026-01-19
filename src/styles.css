@@ -1,27 +1,5 @@
-/* =========================
-   DESIGN TOKENS
-   ========================= */
-:root {
-    /* Backgrounds */
-    --app-bg: #f5f7fa;
-    --panel-bg: #ffffff;
 
-    /* Borders */
-    --border-subtle: #e3e7ee;
 
-    /* Text */
-    --text-primary: #1f2937;
-    --text-secondary: #6b7280;
-
-    /* Accent */
-    --accent: #2563eb;
-    --accent-soft: #e0e7ff;
-
-    /* Status */
-    --success: #16a34a;
-    --warning: #d97706;
-    --danger: #dc2626;
-}
 
 /* =========================
    BASE
@@ -120,7 +98,6 @@ h3 {
     flex: 1;
     display: flex;
     flex-direction: column;
-    background: var(--panel-bg);
     min-width: 0; /* 🔥 ABSOLUT KRITISCH */
 
     overflow: hidden;
@@ -150,7 +127,6 @@ h3 {
    NODE TABLE
    ========================= */
 .node-table .p-datatable-thead th {
-    background: #f9fafb;
     font-size: 0.75rem;
     font-weight: 600;
     color: var(--text-secondary);
@@ -303,7 +279,7 @@ h3 {
 .chat-dock {
     width: 420px;
     min-width: 420px;
-    background: var(--panel-bg);
+    background: var(--app-bg);
     border-left: 1px solid var(--border-subtle);
     display: flex;
     overflow: hidden;
@@ -314,19 +290,22 @@ h3 {
     display: flex;
     flex-direction: column;
 }
+.cs-main-container {
+    background-color: fuchsia !important;
+}
 
 /* Chatscope overrides */
 .cs-conversation-header {
-    background: #f9fafb !important;
+    background: var(--app-bg) !important;
     border-bottom: 1px solid var(--border-subtle) !important;
 }
 
 .cs-message-list {
-    background: #ffffff;
+    background: var(--app-bg) !important;
 }
 
 .cs-message__content {
-    background: #f3f4f6 !important;
+    background: var(--app-bg) !important;
     border-radius: 12px !important;
     font-size: 0.85rem;
     color: var(--text-primary);
@@ -471,3 +450,4 @@ h3 {
         min-height: 0; /* 🔥 extrem wichtig für Flex-Scroll */
     }
 }
+
