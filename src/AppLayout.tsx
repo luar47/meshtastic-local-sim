@@ -44,7 +44,7 @@ export function AppLayout() {
             <link
                 id="theme-link"
                 rel="stylesheet"
-                href="/themes/lara-dark-indigo/theme.css"
+                href="/themes/lara-light-indigo/theme.css"
             />
             {/* 🔝 NAVBAR */}
             <DeviceNavbar/>
