@@ -8,11 +8,11 @@ import {
 } from "@chatscope/chat-ui-kit-react";
 const API_BASE = import.meta.env.VITE_API_BASE_URL;
 
-import type {ChatMessage} from "../types/chat.ts";
-import {mockChannels} from "./mockChannels";
+import type {ChatMessage} from "../../types/chat.ts";
+import {mockChannels} from "./mockChannels.ts";
 import {useEffect, useState} from "react";
-import {MobileChannelMenu} from "./MobileChannelMenu";
-import {connectChatSse} from "./chatSse";
+import {MobileChannelMenu} from "./MobileChannelMenu.tsx";
+import {connectChatSse} from "./chatSse.ts";
 
 type Props = {
     onUndock?: () => void;

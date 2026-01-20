@@ -5,12 +5,10 @@ import { Menubar } from "primereact/menubar";
 export function DeviceNavbar() {
     const items = [
         {
-            label: "Gerät: LAP1",
+            label: "Gerät: LAHQ",
             icon: "pi pi-microchip",
             items: [
-                { label: "LAP1 – SyncAbout Pocket" },
-                { label: "LAP2 – Test Node" },
-                { label: "LAP3 – Mobile Node" },
+                { label: "LAHQ – SyncAbout Headquarter" }
             ],
         },
     ];

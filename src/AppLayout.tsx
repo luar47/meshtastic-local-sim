@@ -4,7 +4,7 @@ import { DeviceNavbar } from "./components/DeviceNavbar";
 import { MapPanel } from "./components/MapPanel";
 import { NodeTable } from "./components/NodeTable";
 import { AppFooter } from "./components/AppFooter";
-import { ChatLayout } from "./chat/ChatLayout";
+import { ChatLayout } from "./components/chat/ChatLayout";
 import { DeviceDetailsPanel } from "./components/DeviceDetailsPanel";
 import { useNodeStore } from "./store/useNodeStore";
 
