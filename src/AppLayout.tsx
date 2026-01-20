@@ -6,13 +6,11 @@ import { NodeTable } from "./components/NodeTable";
 import { AppFooter } from "./components/AppFooter";
 import { ChatLayout } from "./chat/ChatLayout";
 import { DeviceDetailsPanel } from "./components/DeviceDetailsPanel";
-import {usePrimeTheme} from "./hooks/usePrimeTheme.ts";
 import { useNodeStore } from "./store/useNodeStore";
 
 type MobileView = "main" | "device" | "chat";
 
 export function AppLayout() {
-    usePrimeTheme();
     // 🌍 global ausgewähltes Gerät
     const selectedNode = useNodeStore((s) => s.selectedNode);
     const setSelectedNode = useNodeStore((s) => s.setSelectedNode);
@@ -41,11 +39,6 @@ export function AppLayout() {
 
     return (
         <div className="app-root">
-            <link
-                id="theme-link"
-                rel="stylesheet"
-                href="/themes/lara-light-indigo/theme.css"
-            />
             {/* 🔝 NAVBAR */}
             <DeviceNavbar/>
 

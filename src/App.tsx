@@ -4,15 +4,21 @@ import {AppLayout} from "./AppLayout.tsx";
 import {useNodeStore,} from "./store/useNodeStore";
 import {useEffect} from "react";
 import {PrimeReactProvider} from "primereact/api";
+import { useSystemTheme } from "./hooks/useSystemTheme";
+
+
+
 
 
 const API_BASE = import.meta.env.VITE_API_BASE_URL;
+
 
 
 export default function App() {
     const setNodes = useNodeStore((s) => s.setNodes);
     const setLoading = useNodeStore(s => s.setLoading);
 
+    useSystemTheme();
 
     useEffect(() => {
         setLoading(true)
