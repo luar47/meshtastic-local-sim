@@ -15,21 +15,21 @@ body,
 h3 {
     font-size: 0.95rem;
     font-weight: 600;
-    color: var(--text-primary);
+    color: var(--text-color);
 }
 
 .app-root {
     height: 100vh;
     display: flex;
     flex-direction: column;
-    background: var(--app-bg);
+    background: var(--surface-50);
 }
 
 /* =========================
    NAVBAR & FOOTER
    ========================= */
 .device-navbar {
-    border-bottom: 1px solid var(--border-subtle);
+    border-bottom: 1px solid var(--text-color-secondary);
     padding: 0 1.5rem;
     justify-content: space-between;
 
@@ -37,7 +37,7 @@ h3 {
 
 .app-footer {
     height: 48px;
-    border-top: 1px solid var(--border-subtle);
+    border-top: 1px solid var(--text-color-secondary);
     padding: 0 1.5rem;
     font-size: 0.75rem;
 
@@ -58,8 +58,8 @@ h3 {
    DEVICE DETAILS PANEL
    ========================= */
 .device-panel {
-    background: var(--panel-bg);
-    border-right: 1px solid var(--border-subtle);
+    background: var(--surface-50);
+    border-right: 1px solid var(--text-color-secondary);
     overflow-y: auto;
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
     width: 38%;
@@ -75,7 +75,7 @@ h3 {
     align-items: center;
     gap: 0.75rem;
     text-align: center;
-    color: var(--text-secondary);
+    color: var(--text-color-secondary);
     padding: 1.5rem;
 }
 
@@ -105,7 +105,7 @@ h3 {
 
 .map-pane {
     flex: 1.4;
-    border-bottom: 1px solid var(--border-subtle);
+    border-bottom: 1px solid var(--text-color-secondary);
 }
 
 .map-pane > * {
@@ -129,7 +129,7 @@ h3 {
 .node-table .p-datatable-thead th {
     font-size: 0.75rem;
     font-weight: 600;
-    color: var(--text-secondary);
+    color: var(--text-color-secondary);
 }
 
 .node-table td {
@@ -138,16 +138,16 @@ h3 {
 }
 
 .node-table tr.p-highlight {
-    background: var(--accent-soft);
+    background: var(--surface-100);
 }
 
 .node-table tr.p-highlight td:first-child {
-    border-left: 3px solid var(--accent);
+    border-left: 3px solid var(--text-color-secondary);
 }
 
 .node-table .p-datatable-tbody > tr:hover {
     cursor: pointer;
-    background: #f1f5f9;
+    background: var(--surface-100);
 }
 
 .node-table .p-datatable-wrapper {
@@ -198,12 +198,12 @@ h3 {
 
 .device-distance-row {
     font-size: 0.85rem;
-    color: var(--text-secondary);
+    color: var(--text-color-secondary);
 }
 
 .last-seen {
     font-size: 0.75rem;
-    color: var(--text-secondary);
+    color: var(--text-color-secondary);
 }
 
 /* =========================
@@ -217,7 +217,7 @@ h3 {
     display: flex;
     justify-content: space-between;
     padding: 0.6rem 0;
-    border-bottom: 1px solid var(--border-subtle);
+    border-bottom: 1px solid var(--text-color-secondary);
     font-size: 0.85rem;
 }
 
@@ -242,7 +242,7 @@ h3 {
 .signal-bar.p-progressbar {
     height: 8px;
     border-radius: 4px;
-    background: var(--border-subtle);
+    background: var(--text-color-secondary);
     margin: 0.5rem;
 
 }
@@ -279,8 +279,8 @@ h3 {
 .chat-dock {
     width: 420px;
     min-width: 420px;
-    background: var(--app-bg);
-    border-left: 1px solid var(--border-subtle);
+    background: var(--surface-50);
+    border-left: 1px solid var(--text-color-secondary);
     display: flex;
     overflow: hidden;
 }
@@ -296,28 +296,28 @@ h3 {
 
 /* Chatscope overrides */
 .cs-conversation-header {
-    background: var(--app-bg) !important;
-    border-bottom: 1px solid var(--border-subtle) !important;
+    background: var(--surface-50) !important;
+    border-bottom: 1px solid var(--text-color-secondary) !important;
 }
 
 .cs-message-list {
-    background: var(--app-bg) !important;
+    background: var(--surface-50) !important;
 }
 
 .cs-message__content {
-    background: var(--app-bg) !important;
+    background: lightgray !important;
     border-radius: 12px !important;
     font-size: 0.85rem;
-    color: var(--text-primary);
+    color: var(--text-color);
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
 }
 
 .cs-message--outgoing .cs-message__content {
-    background: var(--accent-soft);
+    background: var(--surface-50);
 }
 
 .cs-message-input {
-    border-top: 1px solid var(--border-subtle);
+    border-top: 1px solid var(--text-color-secondary);
     background: #fafafa;
 }
 
@@ -342,7 +342,7 @@ h3 {
     border-right: none;
 
     border-radius: 8px 0 0 8px;
-    border-color: var(--text-primary);;
+    border-color: var(--text-color);;
 
     cursor: pointer;
 
@@ -375,7 +375,7 @@ h3 {
         width: 100%;
         border-right: none;
 
-        border-bottom: 1px solid var(--border-subtle);
+        border-bottom: 1px solid var(--text-color-secondary);
 
 
     }
@@ -401,8 +401,8 @@ h3 {
         align-items: center;
         justify-content: space-between;
         padding: 0.75rem 1rem;
-        border-bottom: 1px solid var(--border-subtle);
-        background: var(--panel-bg);
+        border-bottom: 1px solid var(--text-color-secondary);
+        background: var(--surface-50);
         position: sticky;
         top: 0;
         z-index: 5;
