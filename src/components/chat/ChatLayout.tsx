@@ -144,7 +144,7 @@ export function ChatLayout({onUndock}: Props) {
                                 key={m.id}
                                 model={{
                                     message: m.text,
-                                    direction: "incoming",
+                                    direction: m.short_name === "LAM1" ? "outgoing" : "incoming",
                                     position: "single",
                                 }}
                             >
