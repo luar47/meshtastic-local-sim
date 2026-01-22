@@ -451,3 +451,45 @@ h3 {
     }
 }
 
+/* =========================
+   MAP FULLSCREEN BUTTON
+   ========================= */
+
+.map-wrapper {
+    position: relative;
+    height: 100%;
+}
+
+/* Button wie Leaflet Control */
+.map-fullscreen-btn {
+    position: absolute;
+    bottom: 16px;
+    right: 16px;
+
+    width: 44px;
+    height: 44px;
+
+    border-radius: 6px;
+    border: 1px solid var(--surface-border);
+    background: var(--surface-card);
+
+    font-size: 1.3rem;
+    line-height: 1;
+
+    cursor: pointer;
+    z-index: 1000;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+}
+
+.map-fullscreen-btn:hover {
+    background: var(--surface-hover);
+}
+
+.map-fullscreen-btn:active {
+    transform: scale(0.96);
+}

@@ -23,6 +23,9 @@ export function DeviceDetailsPanel({ device, onCloseMobile }: Props) {
     const [metrics, setMetrics] = useState<NodeMetricsResponse | null>(null);
     const [loadingMetrics, setLoadingMetrics] = useState(false);
 
+
+
+
     useEffect(() => {
         if (!device) return;
 
@@ -35,6 +38,8 @@ export function DeviceDetailsPanel({ device, onCloseMobile }: Props) {
     }, [device.node_id]);
 
     const online = device.rssi > -80;
+
+
 
     return (
         <div className="device-panel-content device-fade">
