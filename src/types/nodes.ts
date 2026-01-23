@@ -8,6 +8,19 @@ export type MapMarker = {
     status: "online" | "idle" | "offline";
 };
 
+export type NodeCoverage = {
+    type: "FeatureCollection";
+    features: GeoJSON.Feature[];
+    properties: {
+        node_id: string;
+        radius_m: number;
+        height_m: number;
+        frequency_mhz: number;
+        model: string;
+        layers: string[];
+    };}
+
+
 export type NodeInfo = {
     // Identität
     node_id: string;     // "!b9dad0a9"
@@ -31,4 +44,5 @@ export type NodeInfo = {
 
     // 🔥 Map (optional!)
     maps_marker?: MapMarker;
+    coverage?: NodeCoverage;
 };
