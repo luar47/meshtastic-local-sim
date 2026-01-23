@@ -5,6 +5,7 @@ import {useNodeStore,} from "./store/useNodeStore";
 import {useEffect} from "react";
 import {PrimeReactProvider} from "primereact/api";
 import { useSystemTheme } from "./hooks/useSystemTheme";
+import "leaflet.heat"
 
 
 

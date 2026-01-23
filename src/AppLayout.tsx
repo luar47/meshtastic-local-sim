@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 import { DeviceNavbar } from "./components/DeviceNavbar";
-import { MapPanel } from "./components/MapPanel";
+import { MapPanel } from "./components/mapPanel/MapPanel.tsx";
 import { NodeTable } from "./components/NodeTable";
 import { AppFooter } from "./components/AppFooter";
 import { ChatLayout } from "./components/chat/ChatLayout";
