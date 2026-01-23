@@ -88,25 +88,34 @@ function CoverageOverlay({ node }: { node: NodeInfo | null }) {
     return null;
 }
 
-/* =========================
-   Helfer: Fullscreen Resize
-   ========================= */
-function InvalidateSizeOnFullscreen({ active }: { active: boolean }) {
-    const map = useMap();
-
-    useEffect(() => {
-        setTimeout(() => {
-            map.invalidateSize();
-        }, 300);
-    }, [active, map]);
-
-    return null;
-}
 
 /* =========================
    Hauptkomponente
    ========================= */
-export function MapPanel() {
+
+function MapResizeFix({ trigger }: { trigger: any }) {
+    const map = useMap();
+
+    useEffect(() => {
+        // ⏱️ kleiner Delay, damit CSS zuerst greift
+        const t = setTimeout(() => {
+            map.invalidateSize();
+        }, 200);
+
+        return () => clearTimeout(t);
+    }, [trigger, map]);
+
+    return null;
+}
+
+type Props = {
+    fullscreen: boolean;
+    onToggleFullscreen: () => void;
+};
+
+
+
+export function MapPanel({ fullscreen, onToggleFullscreen }: Props) {
     const nodes = useNodeStore((s) => s.nodes);
     const selectedNode = useNodeStore((s) => s.selectedNode);
     const setSelectedNode = useNodeStore((s) => s.setSelectedNode);
@@ -150,17 +159,6 @@ export function MapPanel() {
     }, []);
 
     /* 🔳 Fullscreen Toggle */
-    const toggleFullscreen = async () => {
-        if (!mapWrapperRef.current) return;
-
-        if (!document.fullscreenElement) {
-            await mapWrapperRef.current.requestFullscreen();
-            setIsFullscreen(true);
-        } else {
-            await document.exitFullscreen();
-            setIsFullscreen(false);
-        }
-    };
 
     useEffect(() => {
         const handler = () => {
@@ -181,16 +179,16 @@ export function MapPanel() {
             {/* 🔘 Fullscreen Button */}
             <button
                 className="map-fullscreen-btn"
-                onClick={toggleFullscreen}
+                onClick={onToggleFullscreen}
                 title="Fullscreen"
             >
-                {isFullscreen ? "🡼" : "⛶"}
+                {fullscreen ? "⤢" : "⤢"}
             </button>
 
             <MapContainer
                 center={center}
                 zoom={11}
-                style={{ height: "100%", width: "100%" }}
+                style={{height: "100%", width: "100%"}}
             >
                 <TileLayer
                     key={tileUrl}
@@ -198,9 +196,10 @@ export function MapPanel() {
                     url={tileUrl}
                 />
 
-                <InvalidateSizeOnFullscreen active={isFullscreen} />
-                <FlyToSelected node={selectedNode} />
-                <CoverageOverlay node={selectedNode} />
+                <MapResizeFix trigger={fullscreen} />
+
+                <FlyToSelected node={selectedNode}/>
+                <CoverageOverlay node={selectedNode}/>
 
                 {nodes
                     .filter((n) => n.maps_marker)
@@ -216,13 +215,13 @@ export function MapPanel() {
                             >
                                 <Popup>
                                     <strong>{n.shortname}</strong>
-                                    <br />
+                                    <br/>
                                     {n.longname}
-                                    <br />
+                                    <br/>
                                     Status: {m.status}
-                                    <br />
+                                    <br/>
                                     Letzte Aktivität:
-                                    <br />
+                                    <br/>
                                     {new Date(m.last_seen).toLocaleString("de-DE")}
                                 </Popup>
                             </Marker>

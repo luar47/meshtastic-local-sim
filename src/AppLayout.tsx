@@ -15,6 +15,8 @@ export function AppLayout() {
     const selectedNode = useNodeStore((s) => s.selectedNode);
     const setSelectedNode = useNodeStore((s) => s.setSelectedNode);
 
+    const [mapFullscreen, setMapFullscreen] = useState(false);
+
     // 📱 Mobile Navigation
     const [mobileView, setMobileView] = useState<MobileView>("main");
 
@@ -38,8 +40,7 @@ export function AppLayout() {
     }, [selectedNode, isMobile]);
 
     return (
-        <div className="app-root">
-            {/* 🔝 NAVBAR */}
+        <div className={`app-root ${mapFullscreen ? "map-fullscreen" : ""}`}>            {/* 🔝 NAVBAR */}
             <DeviceNavbar/>
 
             {/* 🧱 CONTENT */}
@@ -93,7 +94,8 @@ export function AppLayout() {
                 {(!isMobile || mobileView === "main") && (
                     <main className="main-panel">
                         <div className="map-pane">
-                            <MapPanel/>
+                            <MapPanel fullscreen={mapFullscreen} onToggleFullscreen={() => setMapFullscreen(v => !v)}
+                            />
                         </div>
                         <div className="list-pane">
                             <NodeTable/>
