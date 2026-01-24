@@ -66,13 +66,15 @@ export function CoverageLayer({ nodes }: Props) {
 
             if (heatPoints.length) {
                 const heat = (L as any).heatLayer(heatPoints, {
-                    radius: 25,
-                    blur: 20,
-                    minOpacity: 0.1,
+                    radius: 20,
+                    blur: 15,
+                    minOpacity: 0.2,
                     maxZoom: 18,
                     gradient: {
                         1.0: "rgba(16,145,3,0.4)",
-                        0.3: "#ffeb3b",
+                        0.5: "#13ba00",
+                        0.4: "#ffeb3b",
+                        0.2: "#ff9800",
                         0.0: "#e53935",
                     },
                 });
