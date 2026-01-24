@@ -10,7 +10,7 @@ import type { LatLngExpression } from "leaflet";
 import {CoverageLayer} from "./CoverageLayer.tsx";
 import { useNodeStore } from "../../store/useNodeStore";
 import type { NodeInfo } from "../../types/nodes";
-import {CoverageToggleControl} from "./CoverageToggleControl.tsx";
+import {CoverageLayerControl} from "./CoverageToggleControl.tsx";
 import L from "leaflet";
 import { MeasureControl } from "./MeasureControl";
 
@@ -57,6 +57,8 @@ function FlyToSelected({ node }: { node: NodeInfo | null }) {
    ========================= */
 function MapResizeFix({ trigger }: { trigger: unknown }) {
     const map = useMap();
+
+
 
     useEffect(() => {
         const t = setTimeout(() => map.invalidateSize(), 200);
@@ -126,6 +128,8 @@ export function MapPanel({ fullscreen, onToggleFullscreen }: Props) {
 
 
 
+
+
     return (
         <div className={`map-wrapper ${fullscreen ? "fullscreen" : ""}`}>
             <button
@@ -145,7 +149,7 @@ export function MapPanel({ fullscreen, onToggleFullscreen }: Props) {
                 <MapResizeFix trigger={fullscreen} />
                 <FlyToSelected node={selectedNode} />
                 <CoverageLayer nodes={nodes}/>
-                <CoverageToggleControl/>
+                <CoverageLayerControl/>
                 <MeasureControl />
 
 

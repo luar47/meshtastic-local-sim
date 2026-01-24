@@ -6,6 +6,8 @@ import "leaflet-measure";
 export function MeasureControl() {
     const map = useMap();
 
+
+
     useEffect(() => {
         const control = (L as any).control.measure({
             position: "bottomleft",

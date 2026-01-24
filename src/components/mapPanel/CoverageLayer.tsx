@@ -15,10 +15,17 @@ export function CoverageLayer({ nodes }: Props) {
     const polygonGroup = useRef<L.LayerGroup>(L.layerGroup());
     const heatGroup = useRef<L.LayerGroup>(L.layerGroup());
 
+    /* =========================
+       Scale (einmalig)
+       ========================= */
     useEffect(() => {
-        polygonGroup.current.addTo(map);
-        heatGroup.current.addTo(map);
+        L.control.scale({ metric: true, imperial: false }).addTo(map);
+    }, [map]);
 
+    /* =========================
+       Coverage neu aufbauen
+       ========================= */
+    useEffect(() => {
         polygonGroup.current.clearLayers();
         heatGroup.current.clearLayers();
 
@@ -27,31 +34,29 @@ export function CoverageLayer({ nodes }: Props) {
 
             const features = node.coverage.features;
 
-            /* 🟦 POLYGON */
+            /* ---------- 🟦 Polygon ---------- */
             const polygonFeatures = features.filter(
                 (f): f is GeoJSON.Feature<GeoJSON.Polygon> =>
                     f.geometry.type === "Polygon"
             );
 
             if (polygonFeatures.length) {
-                const polygonFC = {
-                    type: "FeatureCollection",
-                    features: polygonFeatures,
-                } as GeoJSON.FeatureCollection;
+                const poly = L.geoJSON(polygonFeatures,
 
-                const poly = L.geoJSON(polygonFC, {
-                    style: (f) => ({
-                        color:
-                            (f?.properties as any)?.color ?? "#2196f3",
-                        weight: 1,
-                        fillOpacity: 0.15,
-                    }),
-                });
+                    {
+                        style: (f) => ({
+                            color:
+                                (f?.properties as any)?.color ?? "#2196f3",
+                            weight: 1,
+                            fillOpacity: 0.15,
+                        }),
+                    }
+                );
 
                 polygonGroup.current.addLayer(poly);
             }
 
-            /* 🔥 HEATMAP */
+            /* ---------- 🔥 Heatmap ---------- */
             const heatPoints: [number, number, number][] = features
                 .filter(
                     (f): f is GeoJSON.Feature<GeoJSON.Point> =>
@@ -60,8 +65,7 @@ export function CoverageLayer({ nodes }: Props) {
                 .map((f) => {
                     const [lon, lat] = f.geometry.coordinates;
                     const raw = (f.properties as any)?.weight ?? 0.4;
-                    const weight = Math.max(0.03, Math.pow(raw, 2.2));
-                    return [lat, lon, weight];
+                    return [lat, lon, Math.max(0.03, Math.pow(raw, 2.2))];
                 });
 
             if (heatPoints.length) {
@@ -75,7 +79,7 @@ export function CoverageLayer({ nodes }: Props) {
                         0.7: "#13ba00",
                         0.5: "#ffeb3b",
                         0.3: "#ff9800",
-                        0.0: "#e53935",
+                        0.1: "#e53935",
                     },
                 });
 
@@ -83,14 +87,13 @@ export function CoverageLayer({ nodes }: Props) {
             }
         });
 
+        heatGroup.current.addTo(map);
+
+        /* 🔗 Für LayerControl verfügbar machen */
         (map as any)._coverageGroups = {
+
             polygon: polygonGroup.current,
             heat: heatGroup.current,
-        };
-
-        return () => {
-            polygonGroup.current.remove();
-            heatGroup.current.remove();
         };
     }, [nodes, map]);
 
