@@ -330,7 +330,7 @@ h3 {
 .chat-handle {
     position: fixed;
     right: 0;
-    top: 30%;
+    bottom: 20%;
     transform: translateY(-50%);
 
     width: 32px;
@@ -462,7 +462,7 @@ h3 {
 /* Button wie Leaflet Control */
 .map-fullscreen-btn {
     position: absolute;
-    top: 16px;
+    bottom: 16px;
     right: 16px;
 
     width: 44px;
@@ -498,7 +498,7 @@ h3 {
         width: 52px;
         height: 52px;
         font-size: 1.5rem;
-        top: 20px;
+        bottom: 20px;
         right: 20px;
     }
 }
