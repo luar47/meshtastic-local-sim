@@ -72,9 +72,9 @@ export function CoverageLayer({ nodes }: Props) {
                     maxZoom: 18,
                     gradient: {
                         1.0: "rgba(16,145,3,0.4)",
-                        0.5: "#13ba00",
-                        0.4: "#ffeb3b",
-                        0.2: "#ff9800",
+                        0.7: "#13ba00",
+                        0.5: "#ffeb3b",
+                        0.3: "#ff9800",
                         0.0: "#e53935",
                     },
                 });
