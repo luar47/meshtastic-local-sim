@@ -12,6 +12,7 @@ import { useNodeStore } from "../../store/useNodeStore";
 import type { NodeInfo } from "../../types/nodes";
 import {CoverageToggleControl} from "./CoverageToggleControl.tsx";
 import L from "leaflet";
+import { MeasureControl } from "./MeasureControl";
 
 /* =========================
    Konfiguration
@@ -123,6 +124,8 @@ export function MapPanel({ fullscreen, onToggleFullscreen }: Props) {
             ? DARK_TILE
             : LIGHT_TILE;
 
+
+
     return (
         <div className={`map-wrapper ${fullscreen ? "fullscreen" : ""}`}>
             <button
@@ -143,6 +146,8 @@ export function MapPanel({ fullscreen, onToggleFullscreen }: Props) {
                 <FlyToSelected node={selectedNode} />
                 <CoverageLayer nodes={nodes}/>
                 <CoverageToggleControl/>
+                <MeasureControl />
+
 
                 {nodes
                     .filter((n) => n.maps_marker)

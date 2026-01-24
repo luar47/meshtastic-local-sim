@@ -6,6 +6,8 @@ import "primeicons/primeicons.css";                               // Icons
 import "./leafletFix"; // 👈 einmalig, zentral
 import "chartjs-adapter-date-fns";
 import "./styles.css";
+import "leaflet-measure/dist/leaflet-measure.css";
+import "leaflet-measure";
 
 
 const rootElement = document.getElementById("root");
