@@ -120,6 +120,7 @@ export function MapPanel({ fullscreen, onToggleFullscreen }: Props) {
     const nodes = useNodeStore((s) => s.nodes);
     const selectedNode = useNodeStore((s) => s.selectedNode);
     const setSelectedNode = useNodeStore((s) => s.setSelectedNode);
+    const isMobile = window.matchMedia("(max-width: 900px)").matches;
 
     const tileUrl =
         document.documentElement.getAttribute("data-theme") === "dark"
@@ -165,7 +166,11 @@ export function MapPanel({ fullscreen, onToggleFullscreen }: Props) {
                                 position={[m.lat, m.lon]}
                                 icon={createMeshtasticIcon(color)}
                                 eventHandlers={{
-                                    click: () => setSelectedNode(n),
+                                    click: () => {
+                                        if (!isMobile) {
+                                            setSelectedNode(n);
+                                        }
+                                    },
                                 }}
                             >
                                 <Popup>

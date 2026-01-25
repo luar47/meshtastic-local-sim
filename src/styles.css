@@ -7,6 +7,7 @@ body,
     height: 100%;
     margin: 0;
     font-size: 14px;
+    overscroll-behavior: none;
 }
 
 h3 {
@@ -112,14 +113,49 @@ h3 {
     width: 100%;
 }
 
+
+/* 🔥 tötet Leaflet-Modal-Overlays */
+.leaflet-control-container {
+    pointer-events: auto !important;
+}
+
+.leaflet-measure-resultpopup,
+.leaflet-measure-overlay {
+    display: none !important;
+}
+
+/* verhindert graues Touch-Overlay */
+.leaflet-overlay-pane {
+    pointer-events: none;
+}
+
+/* erlaubt Marker trotzdem */
+.leaflet-marker-pane {
+    pointer-events: auto;
+}
+
+.leaflet-control {
+    pointer-events: auto;
+}
+
+/* verhindert Ghost-Overlay */
+.leaflet-popup-pane {
+    pointer-events: none;
+}
+
+
 .leaflet-container {
     height: 100%;
     width: 100%;
+    touch-action: pan-x pan-y;
+
 }
 
 .list-pane {
     flex: 1.3;
     overflow-y: auto;
+    pointer-events: auto;
+
 }
 
 /* =========================
@@ -371,10 +407,10 @@ h3 {
     }
 
     .device-panel {
-        width: 100%;
+        width: 100vh;
         border-right: none;
-
         border-bottom: 1px solid var(--text-color-secondary);
+        z-index:1000
 
 
     }
