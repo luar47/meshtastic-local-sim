@@ -131,7 +131,7 @@ export function AppLayout() {
                 </div>
             )}
 
-            {isMobile && mobileView === "main" && (
+            { !mapFullscreen.valueOf() && (
                 <div
                     className="chat-handle"
                     onClick={() => setMobileView("chat")}

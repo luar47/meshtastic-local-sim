@@ -114,33 +114,8 @@ h3 {
 }
 
 
-/* 🔥 tötet Leaflet-Modal-Overlays */
-.leaflet-control-container {
-    pointer-events: auto !important;
-}
-
-.leaflet-measure-resultpopup,
-.leaflet-measure-overlay {
-    display: none !important;
-}
-
-/* verhindert graues Touch-Overlay */
-.leaflet-overlay-pane {
-    pointer-events: none;
-}
-
-/* erlaubt Marker trotzdem */
-.leaflet-marker-pane {
-    pointer-events: auto;
-}
-
 .leaflet-control {
     pointer-events: auto;
-}
-
-/* verhindert Ghost-Overlay */
-.leaflet-popup-pane {
-    pointer-events: none;
 }
 
 
