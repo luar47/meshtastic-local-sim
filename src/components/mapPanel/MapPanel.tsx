@@ -117,9 +117,12 @@ function getMarkerColor(node: NodeInfo): string {
 
 function isNodeSelected(
     node: NodeInfo,
-    selectedNodes: NodeInfo[]
+    selectedNodes: Array<NodeInfo | null | undefined>
 ): boolean {
-    return selectedNodes.some((n) => n.node_id === node.node_id);
+    return selectedNodes.some(
+        (n): n is NodeInfo =>
+            !!n && n.node_id === node.node_id
+    );
 }
 
 
@@ -177,7 +180,9 @@ export function MapPanel({fullscreen, onToggleFullscreen}: Props) {
                     .map((n) => {
                         const m = n.maps_marker!;
                         const color = getMarkerColor(n);
-                        const selected = isNodeSelected(n, selectedNodes);
+
+                        const selected = isNodeSelected(n, selectedNodes)
+
 
                         return (
                             <Marker
@@ -188,7 +193,7 @@ export function MapPanel({fullscreen, onToggleFullscreen}: Props) {
                                     click: () => {
                                         if (!isMobile) {
                                             setSelectedNode(n);
-                                            setSelectedNodes([n])
+                                            setSelectedNodes([n as NodeInfo])
                                         }
                                     },
                                 }}
