@@ -561,3 +561,17 @@ h3 {
     cursor: pointer;
     user-select: none;
 }
+
+.meshtastic-marker svg {
+    transition: transform 0.15s ease;
+}
+
+.meshtastic-marker svg:hover {
+    transform: scale(1.05);
+}
+
+@keyframes pulse {
+    0% { filter: drop-shadow(0 0 4px rgba(0,255,0,0.4)); }
+    50% { filter: drop-shadow(0 0 10px rgba(0,255,0,0.9)); }
+    100% { filter: drop-shadow(0 0 4px rgba(0,255,0,0.4)); }
+}

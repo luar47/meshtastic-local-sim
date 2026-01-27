@@ -121,7 +121,7 @@ export function AppLayout() {
             {/* =====================
                💬 CHAT HANDLE (IMMER RECHTS)
                ===================== */}
-            {!isMobile && !desktopChatOpen && (
+            {!isMobile && !desktopChatOpen && !mapFullscreen &&  (
                 <div
                     className="chat-handle"
                     onClick={() => setDesktopChatOpen(true)}
