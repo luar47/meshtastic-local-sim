@@ -15,6 +15,9 @@ export function AppLayout() {
     const selectedNode = useNodeStore((s) => s.selectedNode);
     const setSelectedNode = useNodeStore((s) => s.setSelectedNode);
 
+    const selectedNodes = useNodeStore((s) => s.selectedNodes);
+
+
     const [mapFullscreen, setMapFullscreen] = useState(false);
 
     // 📱 Mobile Navigation
@@ -73,7 +76,7 @@ export function AppLayout() {
                    ===================== */}
                 {!isMobile && (
                     <aside className="device-panel">
-                        {selectedNode ? (
+                        {selectedNode && selectedNodes.length < 2 ? (
                             <DeviceDetailsPanel device={selectedNode}/>
                         ) : (
                             <div className="device-panel-empty">

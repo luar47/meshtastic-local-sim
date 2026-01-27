@@ -137,7 +137,7 @@ export function MapPanel({fullscreen, onToggleFullscreen}: Props) {
     const setSelectedNode = useNodeStore((s) => s.setSelectedNode);
 
     const selectedNodes = useNodeStore((s) => s.selectedNodes);
-
+    const setSelectedNodes = useNodeStore((s) => s.setSelectedNodes);
 
 
     const isMobile = window.matchMedia("(max-width: 900px)").matches;
@@ -188,6 +188,7 @@ export function MapPanel({fullscreen, onToggleFullscreen}: Props) {
                                     click: () => {
                                         if (!isMobile) {
                                             setSelectedNode(n);
+                                            setSelectedNodes([n])
                                         }
                                     },
                                 }}

@@ -9,6 +9,7 @@ export function NodeTable() {
     const nodes = useNodeStore((s) => s.nodes);
     const selectedNode = useNodeStore((s) => s.selectedNode);
     const setSelectedNode = useNodeStore((s) => s.setSelectedNode);
+    const setSelectedNodes = useNodeStore((s) => s.setSelectedNodes);
     const loading = useNodeStore(s => s.loading);
 
 
@@ -27,6 +28,7 @@ export function NodeTable() {
             selection={selectedNode ?? null}
             onSelectionChange={(e) => {
                 setSelectedNode(e.value as NodeInfo | null);
+                setSelectedNodes([e.value as NodeInfo])
             }}
             emptyMessage="Keine Geräte gefunden"
             header={`Nodes (${nodes.length})`}
