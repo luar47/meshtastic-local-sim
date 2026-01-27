@@ -1,9 +1,9 @@
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
-import type { NodeInfo } from "../types/nodes";
-import { useNodeStore } from "../store/useNodeStore";
-import { LastSeenCell } from "./nodetable/lastSeenCell";
-import { DistanceCell } from "./nodetable/lastDistanceToUser";
+import type { NodeInfo } from "../../types/nodes.ts";
+import { useNodeStore } from "../../store/useNodeStore.ts";
+import { LastSeenCell } from "./lastSeenCell.tsx";
+import { DistanceCell } from "./lastDistanceToUser.tsx";
 
 export function NodeTable() {
     const nodes = useNodeStore((s) => s.nodes);
@@ -50,7 +50,7 @@ export function NodeTable() {
                 field="longname"
                 header="Name"
                 sortable
-                style={{ minWidth: "180px" }}
+                style={{ minWidth: "160px" }}
             />
 
             {/* Distanz */}
@@ -66,6 +66,10 @@ export function NodeTable() {
                 header="Höhe"
                 sortable
                 style={{ width: "90px", textAlign: "right" }}
+            />
+            <Column
+                field="role"
+                header="Role"
             />
 
             {/* RSSI */}
